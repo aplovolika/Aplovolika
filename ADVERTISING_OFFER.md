@@ -1,7 +1,7 @@
 # ПУБЛИЧНЫЙ ДОГОВОР-ОФЕРТА НА ОКАЗАНИЕ РЕКЛАМНЫХ УСЛУГ В TELEGRAM-КАНАЛЕ «APLOVOLIKA»
 
 **Действующая редакция от:** 5 ноября 2026 года  
-**Место официальной публикации:** [GitHub Repository / Ссылка на ваш ресурс]  
+**Место официальной публикации:** https://github.com/aplovolika/Aplovolika/blob/main/ADVERTISING_OFFER.md
 **По вопросам заказа рекламы и согласования:** Telegram: [@aplovolikaa](https://t.me) | E-mail: aplovolika@gmail.com
 
 ---
