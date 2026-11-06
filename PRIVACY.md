@@ -1,7 +1,7 @@
 # ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ, ОБРАБОТКИ ПЕРСОНАЛЬНЫХ ДАННЫХ И ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ РЕСУРСА «APLOVOLIKA»
 
 **Действующая редакция от:** 5 ноября 2026 года  
-**Место публикации:** [GitHub Repository / Ссылка на ваш ресурс]  
+**Место публикации:** https://github.com/aplovolika/Aplovolika/blob/main/PRIVACY.md  
 **Контакты для правовых запросов:** Telegram: [@aplovolikaa](https://t.me) | E-mail: aplovolika@gmail.com
 
 ---
