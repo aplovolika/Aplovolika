@@ -1,8 +1,9 @@
 # ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ, ПРАВИЛА И ДИСКЛЕЙМЕР РЕСУРСА «APLOVOLIKA»
 
 **Действующая редакция от:** 5 ноября 2026 года  
-**Официальный сайт проекта:** [GitHub Repository / Ссылка на ваш ресурс]  
+**Официальный сайт проекта:** https://github.com/aplovolika/Aplovolika/blob/main/README.md
 **Контакты Администрации:** Telegram: [@aplovolikaa](https://t.me) | E-mail: aplovolika@gmail.com
+ | E-mail: aplovolika@gmail.com
 
 ---
 
