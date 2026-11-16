@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>APLOVOLIKA | Перепродажи на Авито &bull; Обучение и Бизнес-Помощник</title>
+  <style>
+    :root {
+      --bg: #f6f7f9; --surface: #ffffff; --surface-soft: #f1f3f5; --border: #e5e7eb;
+      --text: #111111; --text-muted: #6b7280; --avito-blue: #00aaff;
+      --avito-green: #12d832; --avito-purple: #965eeb; --avito-red: #ff2424;
+      --success-bg: #eafbee; --danger-bg: #fff0f0; --radius: 20px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; padding-bottom: 48px; }
+    .container { max-width: 740px; margin: 0 auto; padding: 16px; }
+    .header { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 20px; margin-bottom: 16px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04); }
+    .brand-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }
+    .logo-wrap { display: flex; align-items: center; gap: 12px; }
+    .av-rect-logo { height: 44px; padding: 0 14px; border-radius: 10px; border: 2px solid #111111; background: #ffffff; display: inline-flex; align-items: center; justify-content: center; font-weight: 900; font-size: 16px; letter-spacing: 0.6px; color: #000000; }
+    .logo-subtitle { font-size: 12px; font-weight: 800; color: #059669; text-transform: uppercase; }
+    .curators-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .curator-btn { display: inline-flex; align-items: center; gap: 6px; background: #111111; color: #ffffff; text-decoration: none; font-size: 12px; font-weight: 700; padding: 8px 13px; border-radius: 999px; }
+    .curator-btn.secondary { background: var(--surface-soft); color: var(--text); border: 1px solid var(--border); }
+    .main-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+    .nav-btn { background: var(--surface); border: 1.5px solid var(--border); color: var(--text); padding: 12px 10px; border-radius: 14px; font-size: 13px; font-weight: 800; cursor: pointer; text-align: center; }
+    .nav-btn.active { background: #111111; border-color: #111111; color: #ffffff; }
+    h1 { font-size: 22px; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; color: #000; }
+    h2 { font-size: 18px; font-weight: 900; margin-bottom: 12px; color: #000; }
+    .subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+    .progress-box { background: var(--surface-soft); border-radius: 14px; padding: 14px; }
+    .progress-top { display: flex; justify-content: space-between; font-size: 13px; font-weight: 800; margin-bottom: 8px; text-transform: uppercase; }
+    .progress-track { width: 100%; height: 10px; background: #dfe3e8; border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--avito-purple), var(--avito-blue), var(--avito-green)); width: 0%; transition: width 0.4s ease; }
+    .tabs, .bp-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 16px; scrollbar-width: none; }
+    .tabs::-webkit-scrollbar, .bp-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn, .bp-tab-btn { background: var(--surface); border: 1.5px solid var(--border); color: var(--text); padding: 9px 14px; border-radius: 12px; font-size: 12px; font-weight: 800; white-space: nowrap; cursor: pointer; }
+    .tab-btn.active { background: var(--avito-blue); border-color: var(--avito-blue); color: #ffffff; }
+    .bp-tab-btn.active { background: #059669; border-color: #059669; color: #ffffff; }
+    .exam-banner { background: var(--surface); border: 2px solid #111111; border-radius: var(--radius); padding: 18px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .btn-primary { background: #111111; color: #ffffff; border: none; padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 800; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+    .btn-green { background: var(--avito-green); color: #000000; border: none; padding: 11px 18px; border-radius: 12px; font-size: 14px; font-weight: 900; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+    .btn-outline { background: var(--surface-soft); color: var(--text); border: 1px solid var(--border); padding: 9px 13px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+    .lesson-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 12px; position: relative; overflow: hidden; }
+    .lesson-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--avito-blue); }
+    .lesson-card.completed::before { background: var(--avito-green); }
+    .lesson-cover { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--border); display: block; }
+    .lesson-num { font-size: 12px; font-weight: 900; color: var(--avito-blue); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; }
+    .lesson-card.completed .lesson-num { color: #059669; }
+    .status-pill { font-size: 11px; padding: 3px 10px; border-radius: 999px; background: var(--avito-green); color: #ffffff; font-weight: 800; }
+    .lesson-title { font-size: 16px; font-weight: 800; margin-bottom: 4px; color: #000; }
+    .lesson-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .quiz-box, .panel-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03); }
+    .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .case-tag { display: inline-block; background: #111111; color: #ffffff; font-size: 12px; font-weight: 800; padding: 5px 12px; border-radius: 999px; margin-bottom: 12px; text-transform: uppercase; }
+    .question-text { font-size: 16px; font-weight: 800; margin-bottom: 18px; color: #000; }
+    .options-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+    .option-btn { width: 100%; text-align: left; background: var(--surface-soft); border: 2px solid transparent; color: var(--text); padding: 14px 16px; border-radius: 14px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .option-btn.correct { border-color: var(--avito-green); background: var(--success-bg); color: #064e3b; font-weight: 700; }
+    .option-btn.wrong { border-color: var(--avito-red); background: var(--danger-bg); color: #7f1d1d; font-weight: 700; }
+    .explanation-box { border-radius: 14px; padding: 16px; margin-bottom: 18px; font-size: 14px; display: none; font-weight: 600; }
+    .explanation-box.show { display: block; }
+    .explanation-box.ok { background: var(--success-bg); border: 2px solid var(--avito-green); color: #064e3b; }
+    .explanation-box.err { background: var(--danger-bg); border: 2px solid var(--avito-red); color: #7f1d1d; }
+    .quiz-footer { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .result-card { text-align: center; padding: 16px 0; }
+    .result-score { font-size: 46px; font-weight: 900; color: var(--avito-green); margin: 10px 0; }
+    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+    .stat-card { background: var(--surface-soft); border-radius: 14px; padding: 13px; border: 1px solid var(--border); }
+    .stat-card.highlight { background: var(--success-bg); border-color: var(--avito-green); }
+    .stat-label { font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
+    .stat-val { font-size: 18px; font-weight: 900; color: #000; }
+    .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
+    .form-full { grid-column: 1 / -1; }
+    .input-group label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+    .input-group input, .input-group select { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1.5px solid var(--border); font-size: 14px; font-weight: 600; background: #fff; }
+    .table-wrap { overflow-x: auto; margin-top: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th, td { padding: 9px 6px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { font-weight: 800; color: var(--text-muted); font-size: 11px; text-transform: uppercase; }
+    .badge-ok { background: var(--success-bg); color: #059669; padding: 2px 7px; border-radius: 6px; font-weight: 800; }
+    .badge-warn { background: var(--danger-bg); color: #dc2626; padding: 2px 7px; border-radius: 6px; font-weight: 800; }
+    .legal-section { margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .legal-section h3 { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+    .legal-section p, .legal-section li { font-size: 13px; color: #374151; margin-bottom: 5px; }
+    .legal-section ul { padding-left: 18px; }
+    .footer { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="brand-row">
+      <div class="logo-wrap">
+        <div class="av-rect-logo">APLOVOLIKA</div>
+        <div>
+          <div style="font-weight: 900; font-size: 18px; color: #000; line-height: 1.1;">ПЕРЕПРОДАЖИ АВИТО</div>
+          <div class="logo-subtitle">Бесплатная академия &bull; Практикум</div>
+        </div>
+      </div>
+      <div class="curators-row">
+        <a href="https://t.me/aplovolikaa" target="_blank" class="curator-btn">💬 Матвей</a>
+        <a href="https://t.me/benzodayana" target="_blank" class="curator-btn secondary">💬 Даяна</a>
+      </div>
+    </div>
+    <h1>Практический портал селлера</h1>
+    <p class="subtitle">Обучающие кейсы под каждый урок, полный веб-аналог таблицы «Бизнес-Помощник» и правовая база проекта. Полностью бесплатно.</p>
+    <div class="progress-box">
+      <div class="progress-top">
+        <span>Прогресс обучения</span>
+        <span id="progress-text">0 из 27 блоков (0%)</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-nav">
+    <button class="nav-btn active" id="nav-learn" onclick="switchMainTab('learn')">🎓 Обучение</button>
+    <button class="nav-btn" id="nav-calc" onclick="switchMainTab('calc')">📊 Бизнес-Помощник</button>
+    <button class="nav-btn" id="nav-legal" onclick="switchMainTab('legal')">⚖️ Право и Правила</button>
+  </div>
+  <div id="tab-learn">
+    <div id="home-view">
+      <div class="exam-banner">
+        <div>
+          <h3 style="font-size: 16px; font-weight: 900; text-transform: uppercase;">🏆 Финальный экзамен</h3>
+          <p style="font-size: 13px; color: var(--text-muted);">15 случайных боевых задач по всем 30 урокам</p>
+        </div>
+        <button class="btn-primary" onclick="startExam()">Сдать экзамен</button>
+      </div>
+
+      <div class="tabs" id="module-tabs">
+        <button class="tab-btn active" onclick="selectModule(1)">Модуль 1 (1–8)</button>
+        <button class="tab-btn" onclick="selectModule(2)">Модуль 2 (9–17)</button>
+        <button class="tab-btn" onclick="selectModule(3)">Модуль 3 (18–24)</button>
+        <button class="tab-btn" onclick="selectModule(4)">Модуль 4 (25–30)</button>
+      </div>
+
+      <div id="lessons-container"></div>
+    </div>
+
+    <div id="quiz-view" class="hidden">
+      <div class="quiz-box">
+        <div class="quiz-header">
+          <button class="btn-outline" onclick="goHome()">← К урокам</button>
+          <span id="quiz-counter" style="font-size: 13px; font-weight: 800; color: var(--text-muted);">Кейс 1 из 3</span>
+        </div>
+        <div id="quiz-active-area">
+          <img id="quiz-cover-img" class="lesson-cover hidden" src="" alt="Иллюстрация урока" onerror="this.classList.add('hidden')" />
+          <div class="case-tag" id="quiz-lesson-label">Урок 1</div>
+          <div class="question-text" id="quiz-question"></div>
+          <div class="options-list" id="quiz-options"></div>
+          <div class="explanation-box" id="quiz-explanation"></div>
+          <div class="quiz-footer">
+            <a id="quiz-post-link" href="#" target="_blank" class="btn-outline">📖 Открыть пост в ТГ</a>
+            <button id="quiz-next-btn" class="btn-primary hidden" onclick="nextQuestion()">Дальше →</button>
+          </div>
+        </div>
+        <div id="quiz-result-area" class="result-card hidden">
+          <div style="font-size: 48px;">🎯</div>
+          <h2 id="result-title">Урок пройден!</h2>
+          <div class="result-score" id="result-score">3 / 3</div>
+          <p id="result-desc" class="subtitle" style="max-width: 440px; margin: 0 auto 20px;"></p>
+          <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <button class="btn-outline" onclick="retryQuiz()">Ещё раз</button>
+            <a id="result-post-link" href="#" target="_blank" class="btn-outline">📖 В пост</a>
+            <button class="btn-primary" onclick="goHome()">К урокам →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="tab-calc" class="hidden">
+    <div class="bp-tabs">
+      <button class="bp-tab-btn active" id="bp-btn-5" onclick="switchBpSheet(5)">5. Общая сводка</button>
+      <button class="bp-tab-btn" id="bp-btn-1" onclick="switchBpSheet(1)">1. Калькулятор и Продажи</button>
+      <button class="bp-tab-btn" id="bp-btn-2" onclick="switchBpSheet(2)">2. Склад и партии</button>
+      <button class="bp-tab-btn" id="bp-btn-3" onclick="switchBpSheet(3)">3. Реклама и расходы</button>
+      <button class="bp-tab-btn" id="bp-btn-4" onclick="switchBpSheet(4)">4. Тест спроса и Справочник</button>
+    </div>
+
+    <div id="bp-sheet-5" class="panel-box">
+      <h2>📊 5. Общая сводка бизнеса (реальные данные)</h2>
+      <p class="subtitle">Сводка автоматически собирает данные со всех листов (закупки, продажи с автосписанием, расходы на отзывы и продвижение).</p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Общая выручка</div>
+          <div class="stat-val" id="sum-rev">0 ₽</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Вложено в закупки</div>
+          <div class="stat-val" id="sum-buy">0 ₽</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Заморожено в остатках</div>
+          <div class="stat-val" id="sum-frozen">0 ₽</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Чистые расходы (реклама/отзывы)</div>
+          <div class="stat-val" id="sum-ads">0 ₽</div>
+        </div>
+        <div class="stat-card highlight" style="grid-column: 1 / -1;">
+          <div class="stat-label">Итоговая чистая прибыль на руки (после всех вычетов)</div>
+          <div class="stat-val" style="color: #059669; font-size: 24px;" id="sum-net">0 ₽</div>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: space-between; background: var(--surface-soft); padding: 12px 14px; border-radius: 12px; font-size: 13px; font-weight: 800;">
+        <span>Продано / Возвратов: <span id="sum-counts">0 / 0 шт.</span></span>
+        <span>Остаток на складе: <span id="sum-stock-qty">0 шт.</span></span>
+      </div>
+    </div>
+    <div id="bp-sheet-1" class="panel-box hidden">
+      <h2>🧮 1. Калькулятор по 7 пункту и Учёт продаж</h2>
+      <div class="form-grid">
+        <div class="input-group form-full">
+          <label>Товар (выберите со склада или впишите новый)</label>
+          <input type="text" id="s1-name" list="stock-datalist" placeholder="Например: Беспроводные наушники Pro" oninput="calcS1Preview()" />
+          <datalist id="stock-datalist"></datalist>
+        </div>
+        <div class="input-group">
+          <label>Статус сделки</label>
+          <select id="s1-status" onchange="calcS1Preview()">
+            <option value="Продано">Продано (списать со склада)</option>
+            <option value="Возврат">Возврат (оставить на складе)</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Кол-во (шт.)</label>
+          <input type="number" id="s1-qty" value="1" min="1" oninput="calcS1Preview()" />
+        </div>
+        <div class="input-group">
+          <label>Закупка З.С.Т. (₽/шт.)</label>
+          <input type="number" id="s1-cost" placeholder="1250" oninput="calcS1Preview()" />
+        </div>
+        <div class="input-group">
+          <label>Мин. цена на Ozon/WB (₽)</label>
+          <input type="number" id="s1-mp" placeholder="2190" oninput="calcS1Preview()" />
+        </div>
+        <div class="input-group">
+          <label>Комиссия Авито (%)</label>
+          <input type="number" id="s1-comm" value="7" step="0.5" oninput="calcS1Preview()" />
+        </div>
+        <div class="input-group">
+          <label>Налог (0% / 6% ИП)</label>
+          <select id="s1-tax" onchange="calcS1Preview()">
+            <option value="0">0% (старт / тест)</option>
+            <option value="6" selected>6% (ИП УСН)</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Упаковка (₽/шт.)</label>
+          <input type="number" id="s1-pack" value="30" oninput="calcS1Preview()" />
+        </div>
+        <div class="input-group">
+          <label>Факт. цена продажи (₽/шт.)</label>
+          <input type="number" id="s1-price" placeholder="2100" oninput="calcS1Preview()" />
+        </div>
+      </div>
+      <div id="s1-preview" style="background: var(--surface-soft); padding: 13px; border-radius: 12px; margin-bottom: 12px; font-size: 13px; font-weight: 700;">
+        Заполните З.С.Т. и цену — таблица автоматически рассчитает наценку по 7 пункту, сравнит с WB/Ozon и покажет чистую прибыль.
+      </div>
+      <button class="btn-green" style="width: 100%;" onclick="addSaleRow()">➕ Записать сделку</button>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Товар</th><th>Статус</th><th>Выручка</th><th>Чистая прибыль</th><th></th></tr></thead>
+          <tbody id="s1-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div id="bp-sheet-2" class="panel-box hidden">
+      <h2>📦 2. Склад, закупки и точка безубыточности</h2>
+      <div class="form-grid">
+        <div class="input-group form-full">
+          <label>Название товара</label>
+          <input type="text" id="s2-name" placeholder="Например: Стайлер для волос" />
+        </div>
+        <div class="input-group">
+          <label>Поставщик</label>
+          <select id="s2-sup">
+            <option value="Wikkeo">Wikkeo</option>
+            <option value="Ozon Global">Ozon Global</option>
+            <option value="Telegram">Telegram</option>
+            <option value="Авито">Авито</option>
+            <option value="Wildberries / Ozon">Wildberries / Ozon</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Закуплено (шт.)</label>
+          <input type="number" id="s2-qty" placeholder="5" min="1" />
+        </div>
+        <div class="input-group form-full">
+          <label>Цена закупки за 1 шт. (₽)</label>
+          <input type="number" id="s2-cost" placeholder="3200" />
+        </div>
+      </div>
+      <button class="btn-primary" style="width: 100%;" onclick="addStockRow()">➕ Добавить партию на склад</button>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Товар (Поставщик)</th><th>Куплено / Остаток</th><th>Вложено</th><th>Т. безубыточности</th><th></th></tr></thead>
+          <tbody id="s2-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="bp-sheet-3" class="panel-box hidden">
+      <h2>🕯 3. Учёт расходов на продвижение и отзывы</h2>
+      <div class="form-grid">
+        <div class="input-group">
+          <label>Категория расхода</label>
+          <select id="s3-cat">
+            <option value="Отзывы">Отзывы (закупка мелочовки)</option>
+            <option value="Продвижение">Продвижение (услуги Авито)</option>
+            <option value="Размещение">Размещение объявлений</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Потрачено (₽)</label>
+          <input type="number" id="s3-spent" placeholder="3000" />
+        </div>
+        <div class="input-group">
+          <label>Возврат средств (₽)</label>
+          <input type="number" id="s3-ret" value="0" />
+        </div>
+        <div class="input-group">
+          <label>Комментарий</label>
+          <input type="text" id="s3-note" placeholder="Закупка кабелей для отзывов" />
+        </div>
+      </div>
+      <button class="btn-primary" style="width: 100%;" onclick="addExpenseRow()">➕ Добавить расход</button>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Категория</th><th>Комментарий</th><th>Чистый расход</th><th></th></tr></thead>
+          <tbody id="s3-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div id="bp-sheet-4" class="panel-box hidden">
+      <h2>📈 4. Трекер теста спроса (7 дней) и Справочник</h2>
+      <div class="form-grid">
+        <div class="input-group form-full">
+          <label>Тестируемый товар</label>
+          <input type="text" id="s4-name" placeholder="Название тестового объявления" />
+        </div>
+        <div class="input-group">
+          <label>День теста (1–7)</label>
+          <select id="s4-day">
+            <option value="День 1">День 1</option><option value="День 2">День 2</option>
+            <option value="День 3">День 3</option><option value="День 4">День 4</option>
+            <option value="День 5">День 5</option><option value="День 6">День 6</option>
+            <option value="День 7">День 7</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Просмотры за день</label>
+          <input type="number" id="s4-views" placeholder="25" />
+        </div>
+        <div class="input-group">
+          <label>Лайки</label>
+          <input type="number" id="s4-likes" placeholder="3" />
+        </div>
+        <div class="input-group">
+          <label>Сообщения / Контакты</label>
+          <input type="number" id="s4-msgs" placeholder="2" />
+        </div>
+      </div>
+      <button class="btn-primary" style="width: 100%;" onclick="addTestRow()">➕ Записать день теста</button>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>День / Товар</th><th>Просмотры</th><th>Сообщения</th><th>Вердикт</th><th></th></tr></thead>
+          <tbody id="s4-tbody"></tbody>
+        </table>
+      </div>
+      <div style="margin-top: 18px; background: var(--surface-soft); padding: 14px; border-radius: 14px; font-size: 12px;">
+        <div style="font-weight: 900; margin-bottom: 6px; text-transform: uppercase;">📌 Справочник наценок (7 пункт курса):</div>
+        <div>300–899 ₽ &rarr; <strong>+300 ₽</strong> | 900–2 199 ₽ &rarr; <strong>+500 ₽</strong> | 2 200–2 599 ₽ &rarr; <strong>+700 ₽</strong></div>
+        <div>2 600–2 999 ₽ &rarr; <strong>+1 100 ₽</strong> | 3 000–3 999 ₽ &rarr; <strong>+1 500 ₽</strong> | 4 000–5 999 ₽ &rarr; <strong>+2 000 ₽</strong></div>
+        <div>6 000–7 999 ₽ &rarr; <strong>+2 500 ₽</strong> | 8 000–9 999 ₽ &rarr; <strong>+3 000 ₽</strong> | от 10 000 ₽ &rarr; <strong>+25% к З.С.Т.</strong></div>
+      </div>
+    </div>
+  </div>
+  <div id="tab-legal" class="hidden">
+    <div class="panel-box">
+      <h2>⚖️ Юридическая информация, правила и дисклеймер «APLOVOLIKA»</h2>
+      <p class="subtitle">Актуальная редакция от 16 ноября 2026 года. Открывая страницы портала или каналы проекта, вы подтверждаете полное принятие условий настоящего публичного лицензионного соглашения (ст. 438 ГК РФ).</p>
+
+      <div class="legal-section">
+        <h3>1. Правовой статус и реквизиты Администратора</h3>
+        <ul>
+          <li><strong>Владелец и Правообладатель:</strong> Информационный ресурс, каналы в Telegram / MAX и веб-портал «APLOVOLIKA» принадлежат и администрируются физическим лицом, применяющим специальный налоговый режим «Налог на профессиональный доход» (самозанятым): <strong>Горшениным Матвеем Алексеевичем</strong> (ИНН: <strong>026109152742</strong>, Республика Башкортостан).</li>
+          <li><strong>Официальные каналы связи:</strong> Владелец проекта <strong>@aplovolikaa</strong>, официальный куратор <strong>@benzodayana</strong>, электронная почта для обращений и правовых претензий: <strong>aplovolika@gmail.com</strong>.</li>
+          <li><strong>Налоговая прозрачность:</strong> Все расчёты по коммерческим услугам (маркированная реклама с токеном <code>erid</code> по ФЗ-38 и индивидуальные информационно-консультационные разборы) проводятся официально с формированием чека в приложении ФНС России «Мой налог».</li>
+        </ul>
+      </div>
+
+      <div class="legal-section">
+        <h3>2. Полная бесплатность обучения и защита от мошенников (Анти-Фишинг)</h3>
+        <ul>
+          <li><strong>100% бесплатный доступ:</strong> Все обучающие статьи, уроки, интерактивные кейсы, скрипты и веб-инструмент «Бизнес-Помощник» предоставляются пользователям <strong>абсолютно БЕСПЛАТНО</strong> для личного самообразования.</li>
+          <li><strong>Защита от скама:</strong> Администрация и кураторы (Матвей и Даяна) никогда не пишут первыми с требованием перевести предоплату за «доступ к закрытому обучению», «раскрутку счёта» или «покупку товаров через менеджера», а также не запрашивают СМС-коды и данные банковских карт.</li>
+        </ul>
+      </div>
+
+      <div class="legal-section">
+        <h3>3. Лицензия, авторские права и запрет на рерайт (ч. 4 ГК РФ)</h3>
+        <ul>
+          <li><strong>Исключительные права (ст. 1259 ГК РФ):</strong> Все тексты уроков, структура программы, таблицы, кейсы, дизайн и программный код настоящего портала являются объектами авторского права Горшенина М.А.</li>
+          <li><strong>Объём лицензии (ст. 1235 ГК РФ):</strong> Пользователю предоставляется простая (неисключительная) безвозмездная лицензия исключительно для личного некоммерческого изучения без права передачи третьим лицам.</li>
+          <li><strong>Запрет переработки и обучения ИИ (ст. 1270 ГК РФ):</strong> Категорически запрещено копировать материалы, продавать их под своим брендом, пересказывать методологию в своих видео, PDF-гайдах, ботах, наставничестве или загружать тексты курса в нейросети для переупаковки.</li>
+          <li><strong>Ответственность (ст. 1301 ГК РФ):</strong> Приоритет авторства зафиксирован в исходных файлах и коммитах GitHub. При нарушении прав Правообладатель взыскивает компенсацию от 10 000 до 5 000 000 рублей и судебные расходы.</li>
+        </ul>
+      </div>
+      <div class="legal-section">
+        <h3>4. Налоговая оговорка, дисклеймер и защита несовершеннолетних</h3>
+        <ul>
+          <li><strong>Отказ от гарантий дохода:</strong> Вся информация носит исключительно аналитический и ознакомительный характер и не является индивидуальной инвестиционной рекомендацией или публичной офертой. Фиксированная прибыль не гарантируется; пользователь самостоятельно несёт предпринимательские риски.</li>
+          <li><strong>Налоговая оговорка (ФЗ-422 и 115-ФЗ):</strong> Режим самозанятого (НПД 4%) по закону применим только к реализации товаров собственного изготовления/доработки или услугам. Для систематической перепродажи товаров сторонних производителей пользователь обязан самостоятельно зарегистрировать статус ИП и соблюдать требования 115-ФЗ.</li>
+          <li><strong>Возрастной ценз (18+):</strong> Самостоятельное ведение коммерческой деятельности и регистрация ИП допускаются с 18 лет (либо с 14–16 лет при наличии письменного согласия законных представителей или эмансипации по ст. 27 ГК РФ).</li>
+        </ul>
+      </div>
+
+      <div class="legal-section">
+        <h3>5. Политика конфиденциальности и LocalStorage (152-ФЗ)</h3>
+        <ul>
+          <li><strong>Отсутствие серверного сбора данных:</strong> Портал размещён на инфраструктуре GitHub Pages, не использует рекламные трекеры и не передаёт персональные данные пользователей на внешние серверы Администратора.</li>
+          <li><strong>Локальное хранение:</strong> Прогресс прохождения уроков и записи учёта в «Бизнес-Помощнике» сохраняются локально исключительно в памяти браузера самого пользователя (<code>localStorage</code>) и могут быть удалены им в любой момент через очистку кэша.</li>
+        </ul>
+      </div>
+
+      <div class="legal-section" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+        <h3>6. Порядок урегулирования споров</h3>
+        <p>Все претензии и запросы на удаление данных направляются в обязательном досудебном порядке на электронную почту <strong>aplovolika@gmail.com</strong> (срок рассмотрения — 10 рабочих дней). При недостижении согласия спор подлежит рассмотрению в суде по месту регистрации Правообладателя (Республика Башкортостан).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ЧТЕНИЯ ПОЛНОГО УРОКА ПРЯМО НА САЙТЕ -->
+  <div id="lesson-reader-modal" class="panel-box hidden" style="position: fixed; inset: 12px; z-index: 999; overflow-y: auto; max-width: 720px; margin: 0 auto; border: 2px solid #111111; box-shadow: 0 20px 50px rgba(0,0,0,0.35);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: #fff; z-index: 2;">
+      <span id="reader-num" style="font-size: 12px; font-weight: 900; color: var(--avito-blue); text-transform: uppercase;">Урок</span>
+      <button class="btn-primary" style="padding: 6px 12px;" onclick="closeLessonReader()">✕ Закрыть урок</button>
+    </div>
+    <img id="reader-img" class="lesson-cover hidden" src="" alt="Иллюстрация урока" onerror="this.classList.add('hidden')" />
+    <h2 id="reader-title" style="font-size: 20px; margin-bottom: 14px;"></h2>
+    <div id="reader-body" style="font-size: 14px; line-height: 1.65; color: #111111;"></div>
+    <div style="margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; gap: 10px; flex-wrap: wrap;">
+      <button id="reader-quiz-btn" class="btn-green">🎯 Закрепить на кейсах</button>
+      <a id="reader-tg-link" href="#" target="_blank" class="btn-outline">📖 Оригинал в ТГ</a>
+      <button class="btn-outline" onclick="closeLessonReader()">Закрыть</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 2026 APLOVOLIKA &bull; Горшенин Матвей Алексеевич (ИНН 026109152742) &bull; Бесплатный практикум по Авито<br/>
+    Почта для связи и правовых вопросов: <a href="mailto:aplovolika@gmail.com" style="color: var(--text);">aplovolika@gmail.com</a> &bull; Кураторы: @aplovolikaa, @benzodayana
+  </div>
+</div>
+<script>
+    const TG_BASE = "https://t.me" + "aplovolikaavito/";
+    const TG_LINKS = {
+    start: "https://t.me/aplovolikaavito/85",
+    curator: "https://t.me",
+    alfa_ip: "https://alfa.me/s_CNoS",
+    lesson1: "https://t.me/aplovolikaavito/86",
+    lesson2: "https://t.me/aplovolikaavito/87",
+    lesson3: "https://t.me/aplovolikaavito/88",
+    lesson4: "https://t.me/aplovolikaavito/90",
+    lesson5: "https://t.me/aplovolikaavito/91",
+    lesson6_ozon_global: "https://t.me/aplovolikaavito/92",
+    lesson6_wikkeo: "https://t.me/aplovolikaavito/93",
+    lesson6_tg: "https://t.me/aplovolikaavito/94",
+    lesson6_scam_tg: "https://t.me/aplovolikaavito/95",
+    lesson6_avito: "https://t.me/aplovolikaavito/97",
+    lesson6_scam_avito: "https://t.me/aplovolikaavito/99",
+    lesson6_wb_ozon: "https://t.me/aplovolikaavito/100",
+    lesson7: "https://t.me/aplovolikaavito/101?single",
+    lesson8: "https://t.me/aplovolikaavito/103?single",
+    lesson9: "https://t.me/aplovolikaavito/107?single",
+    lesson10: "https://t.me/aplovolikaavito/110?single",
+    lesson11: "https://t.me/aplovolikaavito/112",
+    lesson12: "https://t.me/aplovolikaavito/116?single",
+    lesson13_home: "https://t.me/aplovolikaavito/117",
+    lesson13_custom: "https://t.me/aplovolikaavito/120?single",
+    lesson13_street: "https://t.me/aplovolikaavito/122?single",
+    lesson14: "https://t.me/aplovolikaavito/123",
+    lesson15: "https://t.me/aplovolikaavito/124",
+    lesson16: "https://t.me/aplovolikaavito/125",
+    lesson17: "https://t.me/aplovolikaavito/126",
+    lesson18: "https://t.me/aplovolikaavito/127",
+    lesson19: "https://t.me/aplovolikaavito/128",
+    lesson20: "https://t.me/aplovolikaavito/129",
+    lesson20_reviews: "https://t.me/aplovolikaavito/131",
+    lesson21: "https://t.me/aplovolikaavito/136",
+    lesson22: "https://t.me/aplovolikaavito/137",
+    lesson23: "https://t.me/aplovolikaavito/139",
+    lesson24: "https://t.me/aplovolikaavito/142",
+    lesson25: "https://t.me/aplovolikaavito/148",
+    lesson26: "https://t.me/aplovolikaavito/150",
+    lesson27: "https://t.me/aplovolikaavito/154",
+    lesson28: "https://t.me/aplovolikaavito/156",
+    lesson29: "https://t.me/aplovolikaavito/157",
+    lesson30: "https://t.me/aplovolikaavito/158"
+  };
+
+
+  const LESSONS_DATA = [
+    {
+      id: 1, module: 1, img: "images/1.jpg", num: "Урок 1", title: "Подбор товара под специфику города", postUrl: TG_LINKS.lesson1,
+      text: `<p style="margin-bottom:12px;">Первый, но очень важный этап. От места проживания напрямую зависит, какие товары будут улетать при личной встрече, а какие лучше отправлять Авито-доставкой по всей России.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:12px;">
+        <strong>📍 Крупные города (миллионники):</strong> высокая конкуренция, но огромный спрос на хайповую электронику (AirPods, Dyson, смарт-часы), брендовую одежду, кроссовки и новинки из TikTok.
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:12px;">
+        <strong>🏭 Промышленные города:</strong> много заводчан и рабочих профессий — при личной встрече отлично заходят автотовары (толщиномеры, видеорегистраторы, пусковые устройства), электроинструменты (шуруповёрты, УШМ) и рыболовное снаряжение.
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;">
+        <strong>🌊 Курортные и малые города без ТЦ:</strong> у воды летом разлетаются сапборды, маски и палатки; в городах без крупных магазинов электроники люди охотно берут гаджеты «здесь и сейчас», чтобы не ждать доставку.
+      </div>`,
+      cases: [
+        { q: "Вы живёте в небольшом промышленном городе (60 тыс. жителей), где нет моря и крупных ТЦ, а большинство жителей работает на заводах. Какая стратегия даст быстрые продажи?", options: ["Закупить дизайнерский декор для интерьера", "Для личных встреч взять электроинструменты и автотовары, а для продаж по всей РФ подключить Авито-доставку с базовой электроникой", "Закупить сапборды, так как они в топе по всей России"], correct: 1, explain: "Под аудиторию заводчан при личной встрече отлично заходят автотовары и электроинструменты, а Авито-доставка снимает ограничения маленького города." },
+        { q: "В вашем городе жаркое лето и рядом есть водохранилище с базами отдыха. Какой товар логичнее готовить под локальный спрос?", options: ["Сапборды, подводные скутеры, надувные матрасы и наборы для кемпинга", "Офисные гаджеты и дорогие стайлеры", "Обогреватели"], correct: 0, explain: "Водоёмы и жаркий климат напрямую формируют высокий спрос на товары для отдыха на воде и природе." },
+        { q: "В вашем городе почти нет крупных ТЦ и магазинов электроники. Почему здесь хорошо продаются популярные гаджеты?", options: ["Люди здесь вообще не знают про маркетплейсы", "Покупателям проще и быстрее забрать товар у вас при встрече сегодня, чем ехать в мегаполис или ждать доставку", "На Авито в маленьких городах нет конкуренции"], correct: 1, explain: "Дефицит розничных магазинов создаёт высокий спрос на покупку «здесь и сейчас»." }
+      ]
+    },
+    {
+      id: 2, module: 1, img: "images/2.jpg", num: "Урок 2", title: "Определение с целевой аудиторией", postUrl: TG_LINKS.lesson2,
+      text: `<p style="margin-bottom:12px;">Второй критически важный шаг — понять, кто именно будет покупать ваш товар, чтобы не заморозить деньги в неликвиде.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>👨 Мужчины (20–45 лет):</strong> автотовары (регистраторы, компрессоры), инструменты, геймпады, рыболовные снасти. Покупают быстро и по делу.
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>👩 Девушки (18–40 лет):</strong> фены и стайлеры (аналоги Dyson), косметологические аппараты, массажёры. <em>Важно:</em> в модный декор новичку лезть опасно — тренды меняются за пару недель.
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;">
+        <strong>🎁 Сегмент «Для всех» и подарки:</strong> беспроводные наушники, смарт-часы, повербанки и портативные колонки продаются круглый год, а перед 23 февраля и 8 марта аудитории покупают товары на подарки друг другу.
+      </div>`,
+      cases: [
+        { q: "Новичок с бюджетом 15 000 ₽ хочет закупить модные дизайнерские предметы интерьера из TikTok. Почему курс не рекомендует заходить в этот товар на старте?", options: ["Девушки вообще не заходят на Авито", "Тренды в декоре слишком быстро меняются, из-за чего новичок рискует остаться с неликвидными остатками", "Предметы интерьера запрещены на Авито"], correct: 1, explain: "Девушки активно покупают на Авито, но декор сильно зависит от моды — на старте безопаснее брать фены, стайлеры и пылесосы." },
+        { q: "Близится конец февраля и начало марта. Какая связка «Аудитория -> Товар» сработает максимально предсказуемо?", options: ["В феврале — автотовары и инструменты (девушки берут на подарок мужчинам), в марте — фены, стайлеры и смарт-часы (мужчины берут девушкам)", "В феврале и марте лучше всего идут конструкторы LEGO", "В феврале — сапборды, в марте — тюбинги"], correct: 0, explain: "Праздничный спрос строится на покупках в подарок противоположному полу." },
+        { q: "Какая категория товаров относится к сегменту «Для всех» и позволяет продавать круглый год?", options: ["Снаряжение для зимней рыбалки", "Беспроводные наушники, смарт-часы и повербанки", "Сварочные аппараты"], correct: 1, explain: "Наушники, смарт-часы и повербанки нужны всем категориям покупателей в любое время года." }
+      ]
+    },
+    {
+      id: 3, module: 1, img: "images/3.jpg", num: "Урок 3", title: "Продаваемость товара по месяцам и закуп", postUrl: TG_LINKS.lesson3,
+      text: `<p style="margin-bottom:12px;">В товарном бизнесе критически важно учитывать сезонность и «красные» (слабые) месяцы, чтобы не закупить товар на пике оптовых цен или перед спадом спроса.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>❄️ Зима (Октябрь – начало Января):</strong> закупаем зимние и новогодние товары (тюбинги, ёлки, гирлянды, подарочные наборы) заранее в октябре–ноябре. С 15 января начинается резкий спад — в середине января зимнее уже не закупаем!
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>🌸 Весна (Февраль – Май):</strong> в феврале–марте качают подарки к 23 февраля и 8 марта. Апрель и май — «красные» месяцы по продажам, их мы используем для оптовой закупки летних товаров по самым низким ценам.
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;">
+        <strong>☀️ Лето и Осень (Июнь – Сентябрь):</strong> летом продаём сапборды, бассейны и кемпинг; в августе–сентябре — рюкзаки, гаджеты и товары к школе и учёбе.
+      </div>`,
+      cases: [
+        { q: "На календаре 18 апреля (красный месяц по продажам — после праздников у людей мало денег). Какое действие будет самым грамотным?", options: ["Закупить партию зимних ватрушек", "Использовать апрель для оптовой закупки летних товаров (сапбордов, бассейнов), пока цены у поставщиков самые низкие", "Закупить дорогие новогодние подарки"], correct: 1, explain: "Апрель и май — лучшее окно для закупки летнего ассортимента по минимальным оптовым ценам перед летним пиком." },
+        { q: "Наступило 16 января. Новичок видит, что в начале января тюбинги разлетались мгновенно, и хочет вложить весь бюджет в новую партию. Что его ждёт?", options: ["Пиковые продажи продлятся до марта", "После новогодних каникул в середине января наступает резкий спад спроса, и партия может зависнуть", "В конце января цены на тюбинги вырастут в 2 раза"], correct: 1, explain: "В январе хорошие продажи идут только в первую половину месяца (каникулы), после чего активность резко падает." },
+        { q: "Когда по календарю лучше всего закупать зимние и новогодние товары?", options: ["В середине декабря на пике спроса", "В октябре (и до конца ноября), пока оптовики держат адекватные цены", "В марте сразу после 8 марта"], correct: 1, explain: "Октябрь — идеальное время для спокойной закупки зимнего и подарочного ассортимента до предновогоднего роста цен." }
+      ]
+    },
+    {
+      id: 4, module: 1, img: "images/4.jpg", num: "Уроки 4 и 5", title: "Площадки закупки и распределение категорий", postUrl: TG_LINKS.lesson5,
+      text: `<p style="margin-bottom:12px;">Нельзя закупать всё подряд на одном сайте — каждая площадка даёт максимальную выгоду в своей категории товаров.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>⚡ Wikkeo:</strong> главный источник трендовой и базовой электроники (наушники, фены, часы, повербанки) от проверенных московских оптовиков с быстрой отправкой по РФ.
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>🌏 Ozon Global и Оптовые Telegram-каналы:</strong> на Ozon Global берём оригинальные бренды (например, конструкторы LEGO, кроссовки, оригинальные гаджеты) по ценам ниже рынка РФ; в проверенных ТГ-каналах поставщиков ловим самые свежие тренды из Китая.
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;">
+        <strong>📦 Авито (оптовики) и Wildberries / Ozon (акции):</strong> крупногабарит (сапборды, инструменты) выгоднее брать у крупных оптовиков на Авито (например, AVTOVL), а на WB и Ozon ловить локальные распродажи и «золотые товары» с быстрой доставкой.
+      </div>`,
+      cases: [
+        { q: "Вы хотите закупить партию беспроводных наушников и фенов по 900–1 300 ₽ за штуку. Куда идти в первую очередь?", options: ["Wikkeo — там собраны крупные проверенные оптовики по электронике с быстрой отправкой из Москвы", "Ozon Global — оттуда наушники приедут за 1 день", "Обычный Wildberries в розницу"], correct: 0, explain: "Wikkeo специализируется на трендовой и базовой электронике до 1 500–5 000 ₽ с быстрой логистикой по РФ." },
+        { q: "Вам нужно закупить крупногабаритные сапборды или оригинальные наборы LEGO. Как правильно распределить площадки?", options: ["Сапборды брать на Ozon Global, а LEGO — на Wikkeo", "Сапборды искать у проверенных оптовиков на Авито (например, AVTOVL), а оригинальное LEGO — на Ozon Global", "И то, и другое покупать на Wildberries по полной цене"], correct: 1, explain: "На Ozon Global самые выгодные цены на оригинальное LEGO, а крупногабарит выгоднее брать у проверенных поставщиков внутри РФ на Авито." },
+        { q: "Где быстрее всего появляются свежие хайповые новинки из TikTok?", options: ["В проверенных оптовых Telegram-каналах", "В отделе уценки обычного Озона", "Только на региональных рынках"], correct: 0, explain: "Проверенные Telegram-каналы поставщиков быстрее всех привозят свежие тренды из Китая." }
+      ]
+    },
+    {
+      id: 5, module: 1, img: "images/6.jpg", num: "Урок 6 (Часть 1)", title: "Поиск на Ozon Global и WB/Ozon («Золотые товары»)", postUrl: TG_LINKS.lesson6_ozon_global,
+      text: `<p style="margin-bottom:12px;">Правильный поиск у поставщиков экономит до 40% бюджета ещё до первой продажи.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>🔍 Проверка Ozon Global:</strong> ищем карточки со значком «Оригинал» и живыми фото в отзывах. Если у продавца 0 отзывов и 10 одинаковых карточек одного товара с разными ценами — это накрученный значок на реплику, проходить мимо! Также помним про таможенную пошлину 15% при заказе дороже 200 €.
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;">
+        <strong>💎 Ступеньки опта на Wikkeo и «Золотые товары» МП:</strong> на Wikkeo всегда смотрим минимальную оптовую партию (часто от 3–5 шт. цена падает почти вдвое), а на WB/Ozon ищем локальные скидки продавцов с быстрой доставкой 1–3 дня.
+      </div>`,
+      cases: [
+        { q: "На Ozon Global вы нашли наушники Apple со значком «Оригинал», но отзывов 0. В профиле продавца 12 одинаковых объявлений этих наушников с разными ценами. Ваши действия?", options: ["Срочно заказываем", "Не берём! У честного продавца 1 карточка на 1 товар — дубли с разными ценами выдают накрученный значок «Оригинал» на реплику", "Заказываем сразу 5 штук"], correct: 1, explain: "Нормальный продавец не плодит десятки одинаковых карточек одного товара с разными ценниками." },
+        { q: "Вы нашли на Ozon Global смартфон за 28 000 ₽ (~280 €). Что нужно учесть в расчёте себестоимости (З.С.Т.)?", options: ["Ничего, цена окончательная", "Таможенную пошлину 15% от суммы превышения лимита в 200 € (на 80 € сверху)", "Обязательную страховку Ozon 20%"], correct: 1, explain: "При заказе из-за рубежа дороже 200 € начисляется таможенная пошлина 15% от суммы превышения." },
+        { q: "На Wikkeo при покупке 1–2 шт. цена составляет 1 250 ₽/шт., а от 4 шт. срабатывает скидка — 2 600 ₽ за всю партию (по 650 ₽/шт.). Как поступить?", options: ["Взять 1 шт. за 1 250 ₽", "Взять минимальный выгодный опт (4 шт. за 2 600 ₽), так как цена за штуку падает почти в 2 раза", "Заказать 50 шт. без теста"], correct: 1, explain: "На Wikkeo всегда выгодно ловить ступеньку минимального опта, которая снижает цену единицы." }
+      ]
+    },
+    {
+      id: 6, module: 1, img: "images/6_scam.jpg", num: "Урок 6 (Часть 2)", title: "Антискам: Защита от мошенников в ТГ и Авито", postUrl: TG_LINKS.lesson6_scam_tg,
+      text: `<p style="margin-bottom:12px;">В оптовых чатах Telegram и на Авито работает много мошенников. Проверяйте каждого нового поставщика по жёсткому чек-листу:</p>
+      <div style="background:#fff0f0;border-left:4px solid #ff2424;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>🚨 Красные флаги скама в Telegram:</strong><br/>1) У поставщика «есть абсолютно любой товар» в наличии;<br/>2) Цены в 2–3 раза ниже рынка;<br/>3) Ставят таймер 15 минут на оплату с угрозой удаления;<br/>4) Постоянно меняются карты и ФИО получателей при переводе.
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;">
+        <strong>🛡️ Проверка перед оплатой и на ПВЗ:</strong> вбиваем название канала в Google для поиска независимых отзывов, на Авито заказываем строго через Авито-доставку, а на ПВЗ осматриваем коробку и шрифты <strong>не вскрывая заводскую плёнку</strong>.
+      </div>`,
+      cases: [
+        { q: "Новый поставщик в Telegram уверяет, что у него есть «любой товар», ставит таймер 15 минут на оплату с угрозой бана, а затем присылает карту на другое ФИО. Кто перед вами?", options: ["Крупный оптовик", "100% мошенник: таймер на оплату, наличие любого товара и смена владельца карты — классическая схема обмана", "Обычный менеджер"], correct: 1, explain: "Реальные поставщики не ставят таймеров на 15 минут и принимают оплату строго на одного владельца счёта." },
+        { q: "Продавец на Авито просит перевести 18 000 ₽ на карту без Авито-доставки. У аккаунта 4 отзыва, регистрация месяц назад, а вся витрина забита айфонами ниже закупки. Ваши действия?", options: ["Переводим деньги", "Отказываемся: свежий аккаунт, мало отзывов и цены ниже З.С.Т. — явный скам-профиль", "Просим скидку и переводим"], correct: 1, explain: "При предоплате без Авито-доставки обязательно проверяем возраст аккаунта, отзывы и адекватность цен." },
+        { q: "Вы пришли в ПВЗ за заказом через Авито-доставку и видите, что заводская плёнка на коробке кривая, а шрифты размытые. Что делать?", options: ["Вскрыть коробку и проверить внутри", "Не вскрывая заводскую упаковку, сфотографировать коробку, проверить серийник и сразу оформить отказ на месте у сотрудника ПВЗ", "Забрать домой и написать плохой отзыв"], correct: 1, explain: "Никогда не вскрывайте заводскую плёнку при подозрении на подделку — пока она цела, ПВЗ оформит бесплатный возврат." }
+      ]
+    },
+    {
+      id: 7, module: 1, img: "images/7.jpg", num: "Урок 7", title: "Сравнение цен на Авито (Справочник цен)", postUrl: TG_LINKS.lesson7,
+      text: `<p style="margin-bottom:12px;">Прежде чем закупать товар, нужно рассчитать минимальную цену продажи от Закупочной Стоимости Товара (З.С.Т.) и сравнить её с рынком Авито.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>📊 Справочник минимальных наценок:</strong><br/>
+        • З.С.Т. 300–899 ₽ &rarr; минимум <strong>+300 ₽</strong><br/>
+        • З.С.Т. 900–2 199 ₽ &rarr; минимум <strong>+500 ₽</strong><br/>
+        • З.С.Т. 2 200–2 599 ₽ &rarr; минимум <strong>+700 ₽</strong><br/>
+        • З.С.Т. 2 600–2 999 ₽ &rarr; минимум <strong>+1 100 ₽</strong><br/>
+        • З.С.Т. 3 000–3 999 ₽ &rarr; минимум <strong>+1 500 ₽</strong><br/>
+        • З.С.Т. 4 000–5 999 ₽ &rarr; минимум <strong>+2 000 ₽</strong><br/>
+        • З.С.Т. 6 000–7 999 ₽ &rarr; минимум <strong>+2 500 ₽</strong><br/>
+        • З.С.Т. 8 000–9 999 ₽ &rarr; минимум <strong>+3 000 ₽</strong><br/>
+        • З.С.Т. от 10 000 ₽ &rarr; минимум <strong>+25% к стоимости закупки</strong>
+      </div>
+      <div style="background:#fff0f0;border-left:4px solid #ff2424;padding:12px 14px;border-radius:10px;">
+        <strong>⚠️ Правила оценки конкурентов:</strong> если ваша минимальная цена совпадает с рыночной и при этом в городе десятки конкурентов — товар не берём. Карточки с пометкой «Из-за рубежа» (доставка 14–25 дней) при расчёте не учитываем: покупатели на Авито готовы платить больше за получение товара сегодня.
+      </div>`,
+      cases: [
+        { q: "Вы нашли наушники с З.С.Т. = 1 100 ₽ (мин. наценка по Справочнику +500 ₽ -> мин. продажа 1 600 ₽). На Авито в вашем городе они стоят 1 650 ₽, и таких объявлений 45 штук. Берём?", options: ["Да, 1 600 ₽ дешевле 1 650 ₽", "Нет! Маржа близка к минимальным 500 ₽, а конкуренция огромная — товар зависнет", "Берём и ставим 2 200 ₽"], correct: 1, explain: "Если наценка близка к минимуму (+500 ₽), заходить в товар можно только при низкой конкуренции." },
+        { q: "Вы нашли товар с З.С.Т. = 12 000 ₽. Какая минимальная цена продажи должна получиться по Справочнику цен?", options: ["13 000 ₽ (+1 000 ₽)", "От 15 000 ₽ (минимум +25% наценки начиная с 10 000 ₽)", "12 500 ₽ (+500 ₽)"], correct: 1, explain: "Начиная с З.С.Т. 10 000 ₽ минимальная наценка по Справочнику составляет 25%." },
+        { q: "Товар на Ozon Global стоит 2 500 ₽ (доставка 18 дней), а на Авито в вашем городе он стоит 3 600 ₽ в наличии. Можно ли приравнивать цену 2 500 ₽ к рыночной?", options: ["Нет, товары из-за рубежа с долгой доставкой нельзя приравнивать к товарам в наличии — покупатели платят за скорость", "Да, нужно ставить 2 400 ₽", "Товар не подходит"], correct: 0, explain: "Покупатели на Авито готовы переплачивать за получение товара сегодня при встрече." }
+      ]
+    },
+    {
+      id: 8, module: 1, img: "images/8.jpg", num: "Урок 8", title: "Сравнение цен с Wildberries и Ozon", postUrl: TG_LINKS.lesson8,
+      text: `<p style="margin-bottom:12px;">Покупатели всегда проверяют цены на маркетплейсах. Чтобы партия не зависла, сверяем нашу минимальную цену продажи с WB и Ozon по трём правилам:</p>
+      <div style="background:#fff0f0;border-left:4px solid #ff2424;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>❌ Стоп-сигнал (доставка 1–3 дня):</strong> если на WB или Ozon товар стоит дешевле вашей минимальной цены продажи и приезжает за 1–3 дня — товар строго не берём! Конкурировать с быстрой доставкой маркетплейса бессмысленно.
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;">
+        <strong>✅ Зелёный свет (доставка более 7 дней / из-за рубежа):</strong> если на маркетплейсах товар везут из-за рубежа дольше недели (или его вообще нет в наличии в РФ), на Авито его будут охотно забирать дороже ради получения здесь и сейчас. При доставке 4–7 дней и равной цене смотрим на количество отзывов на МП (если их мало — можно тестировать).
+      </div>`,
+      cases: [
+        { q: "Ваша минимальная цена продажи = 2 400 ₽. На Wildberries этот же товар стоит 2 350 ₽ с доставкой завтра (до 3 дней). Какое решение?", options: ["Товар не берём! Ваша минимальная продажа выше цены на маркетплейсе с быстрой доставкой", "Берём, люди не смотрят WB", "Ставим 2 400 ₽"], correct: 0, explain: "Если на WB/Ozon товар дешевле вашей минимальной цены и едет 1–3 дня, конкурировать с маркетплейсом бессмысленно." },
+        { q: "Ваша минимальная продажа = 3 200 ₽. На Ozon этот товар тоже стоит 3 200 ₽ со сроком доставки 6 дней (до 7 дней) и рейтингом 4.9. Стоит ли закупать партию?", options: ["Нет, это высокий риск: при равной цене и доставке до недели большинство выберет Ozon с возвратом у дома", "Да, 100% успех", "Закупаем сразу 20 штук"], correct: 0, explain: "При равной цене и доставке до 7 дней заходить в товар стоит только если на маркетплейсе мало отзывов или плохое качество." },
+        { q: "Ваша минимальная продажа = 4 500 ₽. На WB и Ozon в РФ товара нет, а единственные карточки везут его из-за рубежа за 22 дня по 3 900 ₽. Берём?", options: ["Да! При доставке из-за рубежа (более 7 дней) цена на маркетплейсе не мешает продажам на Авито", "Нет, потому что 4 500 ₽ > 3 900 ₽", "Снижаем цену до 3 800 ₽"], correct: 0, explain: "Когда на маркетплейсах только долгая зарубежная доставка (более 7 дней), на Авито товар берут в наличии дороже." }
+      ]
+    },
+    {
+      id: 9, module: 2, img: "images/9.jpg", num: "Урок 9", title: "Выставление пробного объявления", postUrl: TG_LINKS.lesson9,
+      text: `<p style="margin-bottom:12px;">Главное правило курса — <strong>никогда не закупать партию вслепую</strong>. Сначала мы проверяем реальный спрос через пробное объявление без вложений:</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>📝 Настройка тестовой карточки:</strong><br/>
+        1) Ставим строго <strong>свой город</strong> (чужой мегаполис исказит статистику);<br/>
+        2) Ставим итоговую продажную цену с учётом заложенной комиссии Авито;<br/>
+        3) Обязательно <strong>выключаем тумблер Авито-доставки</strong> и в описании пишем: <em>«Товар ожидается, будет в наличии через 3 дня»</em>, чтобы не получать отмен заказов до приезда партии.
+      </div>`,
+      cases: [
+        { q: "Вы выкладываете пробное объявление для проверки спроса до закупки партии. Почему на этом этапе важно выключить тумблер Авито-доставки и указать в описании «будет в наличии через 3 дня»?", options: ["Чтобы покупатель не оплатил доставку товара, которого у вас ещё нет на руках, и не пожаловался за отмену заказа", "Потому что Авито-доставка платная для новичков", "Чтобы объявление не видели жители других городов"], correct: 0, explain: "Если покупатель оформит Авито-доставку, а вы отмените заказ из-за отсутствия товара, упадёт уровень сервиса и прилетит блокировка." },
+        { q: "Вы живёте в городе Ишимбай (60 тыс. жителей), но хотите собрать побольше просмотров на пробном объявлении и думаете указать местоположение «Москва». Почему это грубая ошибка?", options: ["В Москве нельзя продавать товары без ИП", "Мы собираем честную статистику реального спроса в вашем регионе — московские просмотры исказят цифры, и закупленный товар зависнет у вас в городе", "Авито сразу заблокирует аккаунт за выбор другого города"], correct: 1, explain: "Пробное объявление нужно для замера реального спроса именно в вашей локации, где вы будете проводить сделки." },
+        { q: "Зачем при расчёте цены в пробном объявлении сразу закладывать комиссию Авито-доставки (или компромиссные +3–4%), даже если на этапе теста мы доставку отключили?", options: ["Чтобы проверить спрос именно по той финальной цене, по которой товар будет продаваться в реальном объявлении", "Чтобы Авито быстрее одобрил объявление", "Чтобы потом сделать скидку покупателям"], correct: 0, explain: "Если протестировать спрос по заниженной цене без комиссии, а потом поднять цену на 7–9%, реальные продажи могут оказаться намного ниже ожидаемых." }
+      ]
+    },
+    {
+      id: 10, module: 2, img: "images/10.jpg", num: "Урок 10", title: "Анализ графика просмотров", postUrl: TG_LINKS.lesson10,
+      text: `<p style="margin-bottom:12px;">Наблюдаем за статистикой пробного объявления в течение 4–7 дней (удобно фиксировать цифры в листе №4 «Бизнес-Помощника»).</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>✅ Критерии «Зелёного света» для закупки:</strong><br/>
+        • В первый день набралось от <strong>15–20+ живых просмотров</strong>;<br/>
+        • График держится ровно (без резкого обвала в ноль на 2-й день, допустима погрешность &plusmn;7 просмотров);<br/>
+        • Есть <strong>минимум 1–3 реальных обращения в чат</strong> от заинтересованных покупателей.
+      </div>
+      <div style="background:#fff0f0;border-left:4px solid #ff2424;padding:12px 14px;border-radius:10px;">
+        <strong>❌ Стоп-сигнал:</strong> на лайки (добавления в избранное) мы не опираемся! Если просмотров и лайков много, а в чат никто не написал (0 контактов) — товар не закупаем.
+      </div>`,
+      cases: [
+        { q: "Вы тестируете товар 5 дней. В 1-й день было 28 просмотров, во 2-й — 31, в 3-й — 26, в 4-й — 33, в 5-й — 30 просмотров, и в чат написали 2 реальных покупателя с вопросом о покупке. Берём товар в закупку?", options: ["Нет, график не вырос в 5 раз", "Да! Просмотры в 1-й день выше 15, график стабильный (в пределах погрешности +-7 просмотров) и есть живые обращения от покупателей", "Нет, нужно ждать минимум 100 лайков"], correct: 1, explain: "Стабильный график от 15+ просмотров в день + живые сообщения от клиентов — идеальный зелёный свет для закупки партии." },
+        { q: "На другом пробном объявлении за 4 дня набралось 85 просмотров и 14 лайков (добавлений в избранное), но в чат не написал ни один человек (0 контактов). Какое решение принимаем?", options: ["Закупаем большую партию, ведь 14 человек добавили в избранное!", "Товар не берём! Обязательное условие — минимум 1–3 реальных обращения в чат; лайки без сообщений денег не приносят", "Покупаем платное продвижение на пробное объявление"], correct: 1, explain: "На количество лайков мы не опираемся — без живых контактов в чате закупать партию нельзя." },
+        { q: "В 1-й день после публикации пробное объявление набрало 42 просмотра, но на 2-й день упало до 6 просмотров, а на 3-й — до 2 просмотров (резкий спад). Что это означает?", options: ["Товар не интересен аудитории после первичного показа в ленте — закупать его нельзя", "Просто выходные, нужно срочно закупать партию", "Нужно создать ещё 5 таких же объявлений подряд"], correct: 0, explain: "Резкий обвал графика после первого дня — прямой стоп-сигнал из 10 урока." }
+      ]
+    },
+    {
+      id: 11, module: 2, img: "images/11.jpg", num: "Урок 11", title: "Закупка товара и запуск боевых продаж", postUrl: TG_LINKS.lesson11,
+      text: `<p style="margin-bottom:12px;">После успешного теста спроса заказываем первую небольшую партию (3–5 шт.), вносим её в Лист №2 «Бизнес-Помощника» и переводим объявление в боевой режим.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>🔄 Правильный переход к боевому объявлению:</strong><br/>
+        1) Снимаем старое пробное объявление с публикации и выдерживаем паузу <strong>12–24 часа</strong> (защита от бана за дубли);<br/>
+        2) Публикуем новое объявление с живыми фото, убираем приписку «через 3 дня» и <strong>включаем Авито-доставку</strong>.
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;">
+        <strong>💰 Формула реальной чистой прибыли:</strong><br/>
+        Выручка &minus; З.С.Т. &minus; комиссия Авито &minus; налог &minus; упаковка. Все продажи фиксируем в Листе №1 «Бизнес-Помощника».
+      </div>`,
+      cases: [
+        { q: "Первая партия товара приехала к вам, вы сделали сочные живые фото. Как правильно заменить старое пробное объявление на новое боевое, чтобы не словить бан?", options: ["Опубликовать новое боевое объявление, оставив старое пробное висеть параллельно ещё неделю", "Снять с публикации старое пробное объявление, подождать 12–24 часа и опубликовать новое с реальными фото и включённой Авито-доставкой", "Оставить старые картинки из интернета, просто поменять цену"], correct: 1, explain: "Снятие старого объявления и пауза 12–24 часа защищают от блокировки за дубли и дают новому объявлению свежий буст в ленте." },
+        { q: "По какой формуле рассчитывается ваша реальная чистая прибыль в таблице БИЗНЕС-ПОМОЩНИК после продажи товара?", options: ["Выручка минус З.С.Т.", "Выручка минус З.С.Т. минус комиссия Авито минус налог минус затраты на упаковку", "Цена продажи минус комиссия Авито"], correct: 1, explain: "Учёт всех скрытых расходов (комиссия, налог, упаковка) гарантирует, что вы видите реальную чистую прибыль, а не иллюзию." },
+        { q: "Что многие новички забывают исправить в тексте описания при переходе от пробного объявления к боевому?", options: ["Забывают убрать фразу «будет в наличии через 3 дня» и включить обратно Авито-доставку", "Забывают удалить характеристики товара", "Забывают написать свой номер телефона в описании"], correct: 0, explain: "Если оставить приписку «через 3 дня» и выключенную доставку, вы потеряете половину горячих покупателей." }
+      ]
+    },
+    {
+      id: 12, module: 2, img: "images/12.jpg", num: "Уроки 12 и 13", title: "Правила и локации фотосъёмки товара", postUrl: TG_LINKS.lesson12,
+      text: `<p style="margin-bottom:12px;">На Авито покупают глазами — живое, чёткое фото на 70% решает, кликнет ли человек по вашей карточке в ленте.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>📸 Настройки камеры смартфона:</strong><br/>
+        • Держим телефон <strong>горизонтально</strong>, формат кадра строго <strong>16:9</strong>;<br/>
+        • Включаем зум <strong>2х</strong> (убирает искажения линзы), товар занимает 40–60% кадра по центру;<br/>
+        • Никаких рамок, ценников и инфографики на главном (1-м) фото!
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;">
+        <strong>🏞 Лучшие локации для съёмки:</strong><br/>
+        1) Дома у окна днём на чистом столе/подоконнике при рассеянном свете (без вспышки);<br/>
+        2) На улице в тени здания или деревьев на фоне зелени/архитектуры (избегаем прямых солнечных лучей, дающих жёсткие тени).
+      </div>`,
+      cases: [
+        { q: "Вы фотографируете товар для карточки Авито. Какие настройки камеры и пропорции кадра обеспечат правильное отображение превью в ленте?", options: ["Вертикальное фото 9:16 на широкоугольный объектив 0.5х вплотную к коробке", "Горизонтальное положение, соотношение сторон 16:9, приближение 2х (чтобы не искажать пропорции), товар занимает 40–60% кадра по центру", "Квадратное фото 1:1 со вспышкой в тёмной комнате"], correct: 1, explain: "Горизонтальный формат 16:9 и зум 2х делают превью в ленте Авито чётким, объёмным и без искажений." },
+        { q: "Вы снимаете товар на улице на фоне зелёного парка (уличная локация). Светит яркое полуденное солнце. Как правильно выбрать точку съёмки?", options: ["Встать прямо под открытые лучи солнца и включить вспышку на телефоне", "Встать в тень здания или деревьев (либо снимать в пасмурную погоду) без вспышки, чтобы на коробке не было жёстких чёрных теней и бликов", "Положить товар на пестрый асфальт с мусором"], correct: 1, explain: "В тени на улице получается мягкий, ровный естественный свет, который даёт качество уровня студийной съёмки." },
+        { q: "Можно ли на первое (главное) фото объявления на Авито накладывать яркую инфографику, рамки и надписи «ХИТ ПРОДАЖ / СКИДКА» как на Wildberries?", options: ["Да, это увеличивает продажи в 3 раза", "Нет! На Авито покупатели ценят живой реализм — текст и рамки на обложке отталкивают людей и режут охваты (подписи допустимы только на 2–3 фото)", "Можно только если написать номер телефона на фото"], correct: 1, explain: "Авито — площадка живых фото, перегруженная инфографика на первом слайде выглядит как спам-реклама." }
+      ]
+    },
+    {
+      id: 13, module: 2, img: "images/14.jpg", num: "Урок 14", title: "Создание описания через готовый промпт", postUrl: TG_LINKS.lesson14,
+      text: `<p style="margin-bottom:12px;">Продающее описание закрывает возражения клиента ещё до того, как он напишет в чат, и поднимает карточку в поиске по ключевым запросам.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>🤖 Правила работы с ИИ-промптом:</strong><br/>
+        • Просим нейросеть выдать текст в виде блока кода (<code>text</code>) для копирования в один клик;<br/>
+        • Если товар оригинал — ставим пометку <em>«ОРИГИНАЛЬНЫЙ ТОВАР, НОВЫЙ, ЗАПЕЧАТАННЫЙ»</em>; если качественный аналог — пишем честно <em>«ТОВАР НОВЫЙ, ЗАПЕЧАТАННЫЙ»</em>.
+      </div>
+      <div style="background:#fff0f0;border-left:4px solid #ff2424;padding:12px 14px;border-radius:10px;">
+        <strong>🚫 Стоп-слова для модерации Авито:</strong> строго убираем из текста слова <em>«копия», «реплика», «подделка», «лучшая цена», «акция»</em> — за них объявление отклоняют или блокируют профиль.
+      </div>`,
+      cases: [
+        { q: "Вы генерируете описание товара через ИИ по готовому промпту из 14 урока. Почему в промпте стоит строгий запрет на слова-триггеры вроде «копия», «реплика», «лучшая цена»?", options: ["Потому что ИИ не знает этих слов", "За слова «копия/реплика» Авито моментально блокирует объявление, а за рекламные штампы отклоняет публикацию на модерации", "Потому что эти слова слишком длинные"], correct: 1, explain: "Нейросети любят добавлять рекламные клише, которые на Авито являются триггерами для модерации и блокировок." },
+        { q: "Когда в 4-м абзаце шаблона описания нужно использовать фразу «ОРИГИНАЛЬНЫЙ ТОВАР, НОВЫЙ, ЗАПЕЧАТАННЫЙ», а когда — просто «ТОВАР НОВЫЙ, ЗАПЕЧАТАННЫЙ»?", options: ["Всегда писать «ОРИГИНАЛЬНЫЙ», даже если продаёте реплику", "Писать «ОРИГИНАЛЬНЫЙ» только если товар действительно оригинал; если продаёте качественный аналог/ноунейм — использовать второй вариант без слова «оригинал»", "Никогда не писать про новизну товара"], correct: 1, explain: "Обман в описании приводит к возвратам на ПВЗ, негативным отзывам на 1 звезду и бану профиля." },
+        { q: "В каком виде промпт из 14 урока просит нейросеть выдать готовое описание товара?", options: ["В виде картинки PNG", "В виде блока кода (text), чтобы его можно было скопировать одним нажатием без лишних комментариев ИИ", "В виде голосового сообщения"], correct: 1, explain: "Команда вывести ответ в формате кода (text) избавляет от необходимости вручную вырезать вступления вроде «Конечно, вот ваше описание:»." }
+      ]
+    },
+    {
+      id: 14, module: 2, img: "images/15.jpg", num: "Урок 15", title: "Правила общения с клиентами и скрипты", postUrl: TG_LINKS.lesson15,
+      text: `<p style="margin-bottom:12px;">Скорость и вежливость ответа в чате напрямую влияют на конверсию в заказ и ваш рейтинг «Уровень сервиса» на Авито.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>💬 Рабочий скрипт ответа:</strong><br/>
+        Отвечаем в течение 5–15 минут развёрнуто: <em>«Здравствуйте! Да, товар в наличии, цена актуальная. Можете оформлять Авито-доставку — сегодня бережно упакую и отправлю. Если остались вопросы, с радостью подскажу!»</em>
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;">
+        <strong>🛡️ Защита от хамов и сбор отзывов:</strong> на грубость не отвечаем — нажимаем «Пожаловаться» и блокируем, но <strong>чат не удаляем</strong> (нужен для поддержки). После получения посылки клиентом вежливо просим оставить отзыв на 5 звёзд.
+      </div>`,
+      cases: [
+        { q: "В чат Авито написал неадекватный покупатель, начал хамить и использовать нецензурную лексику. Как правильно поступить, чтобы сохранить высокий «Уровень сервиса»?", options: ["Ответить ему тем же и сразу удалить чат", "Не вестись на провокацию, нажать «Пожаловаться» в чате, заблокировать пользователя, но сам чат не удалять на случай спора с поддержкой", "Просто игнорировать все сообщения в аккаунте ближайшие 3 дня"], correct: 1, explain: "Жалоба и блокировка защищают ваш уровень сервиса от падения за неотвеченное сообщение, а сохранённый чат служит доказательством при обращении в поддержку." },
+        { q: "Покупатель спрашивает в чате: «Здравствуйте, отправляете Авито-доставкой?». Какой ответ даст максимальную конверсию в заказ?", options: ["«Да»", "«Здравствуйте! Да, отправляю. Цена актуальная, товар в наличии — можете оформлять заказ, сегодня отправлю. Если остались вопросы, пишите!»", "«Напишите мне в Telegram @username, там договоримся»"], correct: 1, explain: "Развёрнутый, вежливый ответ снимает все страхи клиента и подталкивает оформить заказ прямо сейчас." },
+        { q: "Покупатель забрал посылку в ПВЗ. Что нужно сделать сразу после завершения заказа?", options: ["Ничего, если захочет — сам напишет", "Отправить вежливое сообщение с вопросом, всё ли понравилось, и попросить оставить отзыв в обмен на ваш взаимный отзыв о покупателе", "Попросить перевести ещё 100 ₽ чаевых на карту"], correct: 1, explain: "Мягкое напоминание сразу после получения увеличивает конверсию в 5-звёздочные отзывы в несколько раз." }
+      ]
+    },
+    {
+      id: 15, module: 2, img: "images/17.jpg", num: "Уроки 16 и 17", title: "Полезные советы и отправка в пунктах приёма (ПВЗ)", postUrl: TG_LINKS.lesson17,
+      text: `<p style="margin-bottom:12px;">Правильное распределение выручки и знание регламентов разных служб доставки уберегут вас от кассовых разрывов и повреждений посылок.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>📈 Формула реинвестирования (Урок 16):</strong><br/>
+        С каждой продажи возвращаем <strong>100% себестоимости (З.С.Т.) + 70–80% чистой прибыли</strong> в новую закупку, а <strong>20–30% прибыли</strong> откладываем в финансовую подушку безопасности.
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;">
+        <strong>📦 Особенности ПВЗ (Урок 17):</strong><br/>
+        • <strong>СДЭК и Яндекс Доставка:</strong> бесплатные пакеты и коробки выдают на пункте;<br/>
+        • <strong>Почта России и 5Post:</strong> нужна своя коробка и пупырка (в 5Post посылку запечатывают дома заранее). Всегда забираем бумажную накладную на пункте!
+      </div>`,
+      cases: [
+        { q: "Вы продали товар и хотите грамотно распределить вырученные деньги по системе реинвестирования из 16 урока. Как правильно разделить сумму?", options: ["Потратить всю выручку на себя, а потом снова копить с нуля", "Вернуть 100% себестоимости (З.С.Т.) + 70–80% чистой прибыли обратно в закупку нового товара, а 20–30% прибыли отложить в подушку безопасности / на личные цели", "Вложить 100% всех денег в платные услуги продвижения"], correct: 1, explain: "Эта формула позволяет одновременно расти в обороте и формировать финансовую подушку безопасности на случай неликвида." },
+        { q: "Вы пришли на Почту России или в 5Post отправлять заказ через Авито-доставку. В чём принципиальная разница между ними и СДЭКом/Яндексом по упаковке?", options: ["Никакой разницы, везде бесплатно упакуют в пупырчатую плёнку и коробку", "В СДЭК и Яндексе пакет/коробку выдадут бесплатно на пункте, а для Почты России и 5Post нужна своя коробка и пупырчатая плёнка (причём в 5Post посылку запечатывают дома заранее)", "Почта России не принимает товары в картонных коробках"], correct: 1, explain: "Знание правил упаковки каждого ПВЗ экономит время и нервы при отправке заказов." },
+        { q: "Вы отправили посылку через СДЭК или Почту России. Сотрудник ПВЗ распечатал бумажную накладную, но не отдал её вам. Ваши действия?", options: ["Уйти домой, накладная не нужна", "Обязательно забрать накладную у сотрудника и хранить её до тех пор, пока покупатель не заберёт посылку (вместе с видеофиксацией упаковки)", "Выбросить накладную сразу у выхода из ПВЗ"], correct: 1, explain: "Бумажная накладная и видео упаковки — единственная гарантия выплаты компенсации от Авито, если посылку потеряют или подменят в пути." }
+      ]
+    },
+    {
+      id: 16, module: 3, img: "images/18.jpg", num: "Урок 18", title: "Тариф Авито Pro: плюсы и риски", postUrl: TG_LINKS.lesson18,
+      text: `<p style="margin-bottom:12px;">Тариф <strong>Авито Pro</strong> переводит оплату на модель за просмотры и открывает профессиональный кабинет аналитики, но подключать его нужно с умом.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>✅ Главные плюсы Авито Pro:</strong><br/>
+        • Комиссия Авито-доставки снижается с 7–9% до <strong>0.5–6.5%</strong> (на дорогих товарах экономия достигает 700–1 500 ₽ с каждой сделки);<br/>
+        • Появляется автозагрузка, расширенная статистика спроса и планирование услуг продвижения.
+      </div>
+      <div style="background:#fff0f0;border-left:4px solid #ff2424;padding:12px 14px;border-radius:10px;">
+        <strong>⚠️ Важные риски и ограничения:</strong><br/>
+        • Вернуться обратно на обычный тариф с оплатой за размещения уже не получится;<br/>
+        • Пропадают персональные скидки (30–70%) на услуги продвижения;<br/>
+        • В нише одежды и обуви люди листают десятки карточек, что быстро сжигает бюджет за просмотры. Подключаем Pro только на проверенных товарах!
+      </div>`,
+      cases: [
+        { q: "Новичок только зарегистрировал аккаунт, ещё не сделал ни одной продажи и планирует торговать одеждой и обувью. Стоит ли ему сразу подключать Авито Pro?", options: ["Да, так просмотры будут дешевле", "Нет! В одежде люди листают десятки объявлений перед покупкой, что приведёт к огромному списанию бюджета за просмотры, а отключить тариф назад не выйдет", "Да, но только на выходные"], correct: 1, explain: "Авито Pro подключают только на проверенных товарах со стабильными продажами — в одежде и обуви оплата за просмотры быстро съест бюджет." },
+        { q: "Вы продали товар за 10 000 ₽ на тарифе Авито Pro, заплатив за 50 просмотров 70 ₽ и комиссию Авито-доставки 0.5% (50 ₽). Сколько вы сэкономили по сравнению с обычным профилем (где комиссия 9% = 900 ₽)?", options: ["120 ₽", "780 ₽ (общие расходы составили 120 ₽ вместо 900 ₽)", "900 ₽"], correct: 1, explain: "Сниженная комиссия 0.5–6.5% на тарифе Авито Pro даёт огромную экономию на дорогих товарах при высокой конверсии в заказ." },
+        { q: "Что произойдёт с персональными скидками (30–70%) на услуги продвижения объявлений после перехода на профессиональный тариф Авито Pro?", options: ["Скидки станут ещё больше", "Скидки на услуги продвижения пропадут, а вернуться обратно на обычный тариф с оплатой за размещения уже не получится", "Продвижение станет бесплатным"], correct: 1, explain: "Переход на Авито Pro — дорога в один конец, поэтому подключать его нужно только осознанно." }
+      ]
+    },
+    {
+      id: 17, module: 3, img: "images/19.jpg", num: "Урок 19", title: "Главные ошибки новичков на Авито", postUrl: TG_LINKS.lesson19,
+      text: `<p style="margin-bottom:12px;">Разбор критических ошибок, на которых новички чаще всего теряют деньги или получают блокировку профиля в первый месяц работы.</p>
+      <div style="background:#fff0f0;border-left:4px solid #ff2424;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>🚫 Топ-3 ошибки на старте:</strong><br/>
+        1) <strong>Повторная закупка без нового теста:</strong> тренд может остыть за неделю — перед каждой новой партией заново замеряем спрос пробным объявлением;<br/>
+        2) <strong>Увод клиента в Telegram или предоплата на карту:</strong> за отправку номера телефона, юзернейма или QR-кода в чате Авито банит профиль;<br/>
+        3) <strong>Заказ у непроверенных поставщиков без поиска в Google:</strong> всегда проверяем отзывы о канале поставщика в открытом поиске до перевода денег.
+      </div>`,
+      cases: [
+        { q: "Вы закупили 5 штук трендового товара, успешно распродали их за неделю с отличной прибылью и хотите заказать вторую партию из 15 штук. Как поступить правильно?", options: ["Сразу оплатить 15 штук, ведь товар уже проверен", "Снова выставить пробное объявление и замерить текущий актив: если спрос остыл — вторую партию не берём", "Заказать сразу 50 штук по оптовой цене"], correct: 1, explain: "Тренд может остыть за одну неделю — перед каждой новой закупкой нужно заново проверять актуальный спрос." },
+        { q: "Покупатель из другого города просит отправить товар СДЭКом по предоплате на карту в обход Авито-доставки и просит прислать ваш номер телефона или ник в Telegram в чат. Ваши действия?", options: ["Отправить номер телефона цифрами или скриншотом QR-кода", "Вежливо отказать и проводить сделку строго через Авито-доставку — за отправку контактов и увод сделки Авито блокирует профиль", "Скинуть ссылку на свой Telegram-канал"], correct: 1, explain: "Алгоритмы Авито мгновенно распознают телефоны, юзернеймы и QR-коды в чате и банят аккаунт." },
+        { q: "Вы нашли в Telegram неизвестного поставщика с ценами в 2 раза ниже рынка, у которого «в наличии есть абсолютно любой товар». Как его проверить перед оплатой?", options: ["Сразу перевести деньги за 1 штуку на пробу", "Вбить название канала в Google (режим ИИ), проверить открытые отзывы и скрины переписок — если информации нет, заказывать строго запрещено", "Поверить скриншотам отзывов внутри его закрытого канала"], correct: 1, explain: "Скриншоты в приватном канале легко подделать, а проверка через поиск и ИИ сразу выявляет скам-проекты." }
+      ]
+    },
+    {
+      id: 18, module: 3, img: "images/20.jpg", num: "Урок 20", title: "Оформление аккаунта и легальный набор отзывов", postUrl: TG_LINKS.lesson20_reviews,
+      text: `<p style="margin-bottom:12px;">Новый пустой аккаунт с 0 отзывов вызывает недоверие. Набираем первые 20–25 живых отзывов полностью легально через Авито-доставку.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>⭐ Пошаговая схема набора 20–25 отзывов:</strong><br/>
+        • Закупаем на Wikkeo или оптом партию дешёвых ходовых мелочей (кабели зарядки, защитные стёкла, чехлы по 15–20 ₽);<br/>
+        • Выставляем их по <strong>30 ₽ через Авито-доставку</strong> со статусом строго <strong>«1 шт. в наличии»</strong> (чтобы перекупы не забрали всю коробку одним заказом; возвращаем 1 шт. после отправки предыдущей посылки).
+      </div>
+      <div style="background:#fff0f0;border-left:4px solid #ff2424;padding:12px 14px;border-radius:10px;">
+        <strong>⚠️ Важно:</strong> в переписке никогда не пишем про «скидку за отзыв» (отвечаем: <em>«Остался последний товар, освобождаю место под новую партию»</em>), а на аватарку ставим реальное опрятное фото вместо ИИ-картинок.
+      </div>`,
+      cases: [
+        { q: "Вы хотите быстро набрать 20–25 живых, законных отзывов на профиль через продажу дешёвых кабелей и стёкол по 30 ₽ через Авито-доставку. Почему в объявлении нужно ставить количество строго «1 шт.»?", options: ["Чтобы Авито не взял комиссию", "Чтобы перекупы не выкупили всю партию по 10 штук за один заказ (возвращать 1 шт. нужно только после отправки предыдущей посылки в ПВЗ)", "Потому что больше 1 шт. нельзя указать на Авито"], correct: 1, explain: "Ограничение в 1 штуку защищает вашу партию для прогрева от оптового выкупа одним человеком." },
+        { q: "Покупатель спрашивает в чате: «Почему кабель стоит всего 30 рублей?». Какой ответ является единственно правильным и безопасным?", options: ["«Такая цена, если оставите отзыв на 5 звёзд после получения»", "«Остался последний товар, освобождаю место под новую партию, поэтому такая цена»", "«Я просто накручиваю отзывы на аккаунт»"], correct: 1, explain: "Любой намёк в переписке на скидку в обмен на отзыв приведёт к блокировке отзыва и профиля алгоритмами Авито." },
+        { q: "Какую аватарку лучше поставить в профиль Авито для максимального доверия покупателей?", options: ["Сгенерированную нейросетью (ИИ-аватарку) или картинку с деньгами", "Своё реальное, опрятное фото или нейтральный красивый пейзаж, а также указать своё настоящее имя", "Аниме-персонажа или логотип чужого бренда"], correct: 1, explain: "ИИ-аватарки массово используют мошенники, поэтому живое фото и реальное имя сразу выделяют вас как надёжного продавца." }
+      ]
+    },
+    {
+      id: 19, module: 3, img: "images/21.jpg", num: "Урок 21", title: "Секреты опытных продавцов на Авито", postUrl: TG_LINKS.lesson21,
+      text: `<p style="margin-bottom:12px;">Мелкие настройки карточки, которые выделяют ваше объявление среди десятков конкурентов без платного продвижения:</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>🔥 4 фишки опытных селлеров:</strong><br/>
+        1) <strong>Эффект левой цифры:</strong> вместо «сухой» цены 2 080 ₽ или 7 000 ₽ ставим <strong>1 990 ₽</strong> или <strong>6 990 ₽</strong> — карточка попадает в фильтры поиска «до 2 000 ₽»;<br/>
+        2) <strong>Наличие:</strong> включаем тумблер <em>«Несколько штук в наличии»</em>, но <strong>конкретное количество штук НЕ указываем</strong> (чтобы объявление не уходило в архив после первой доставки);<br/>
+        3) <strong>Живое видео:</strong> загружаем цельное видео товара в руке до 15 секунд с оригинальным звуком без музыки;<br/>
+        4) <strong>Время публикации:</strong> выкладываем объявление в будни с 18:00 до 21:00 или в воскресенье вечером.
+      </div>`,
+      cases: [
+        { q: "Вы рассчитали итоговую цену продажи товара и получили число 2 080 ₽ (или 7 000 ₽). Как правильно оформить цену и настройки наличия по секретам опытных продавцов?", options: ["Поставить 2 080 ₽ и указать точный остаток 15 шт.", "Округлить в пользу покупателя (1 990 ₽ или 6 990 ₽), включить тумблер «Несколько штук в наличии», но конкретное количество штук НЕ указывать", "Поставить 2 090 ₽ и выключить доставку"], correct: 1, explain: "Цена 1 990 ₽ попадает в фильтр покупателей «до 2 000 ₽», а включённый тумблер «Несколько штук в наличии» без цифры остатка не даёт объявлению выпасть из выдачи после первого заказа." },
+        { q: "Какой дополнительный медиафайл опытные продавцы обязательно загружают в карточку товара (длительностью до 15 секунд без наложенной музыки)?", options: ["Скриншот переписки с поставщиком", "Короткое цельное видео товара в руке со всех сторон с оригинальным звуком на том же фоне", "Картинку с QR-кодом на Telegram"], correct: 1, explain: "Живое цельное видео до 15 секунд со звуком без монтажа вызывает максимум доверия даже на новом аккаунте." },
+        { q: "В какое время суток лучше всего публиковать новое боевое объявление, чтобы собрать максимум просмотров в первые часы?", options: ["В 4 часа утра в понедельник", "В будни с 18:00 до 21:00 или в воскресенье вечером (с учётом запаса времени на модерацию)", "Строго в обед в среду"], correct: 1, explain: "Публикация в пик вечерней активности даёт объявлению максимальный органический охват в рекомендациях." }
+      ]
+    },
+    {
+      id: 20, module: 3, img: "images/22.jpg", num: "Урок 22", title: "Правильное принятие возвратов на ПВЗ", postUrl: TG_LINKS.lesson22,
+      text: `<p style="margin-bottom:12px;">Если покупатель отказался от посылки в ПВЗ, товар возвращается обратно к вам. Чтобы защититься от подмены в пути, принимаем возврат строго по регламенту:</p>
+      <div style="background:#fff0f0;border-left:4px solid #ff2424;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>🎥 Железное правило в ПВЗ:</strong><br/>
+        1) <strong>НЕ называем код выдачи</strong> сотруднику ПВЗ до вскрытия и осмотра коробки!<br/>
+        2) Включаем запись видео одним дублем под камерами пункта, вскрываем посылку при сотруднике и сверяем заводские пломбы и серийный номер с видео перед отправкой.
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;">
+        <strong>⏱ Срок подачи претензии:</strong> если обнаружена подмена или повреждение, не подписываем получение, оформляем акт на ПВЗ и отправляем оба видео в поддержку Авито строго <strong>в течение 24 часов</strong>. Между физлицами правило «14 дней на возврат после выкупа» не действует.
+      </div>`,
+      cases: [
+        { q: "Покупатель в другом городе отказался от посылки в ПВЗ, и товар вернулся обратно к вам. Что нужно сделать ОБЯЗАТЕЛЬНО перед тем, как назвать код выдачи сотруднику ПВЗ?", options: ["Назвать код, забрать коробку и открыть её дома", "Не называя код выдачи, вскрыть посылку под камерами в присутствии сотрудника ПВЗ и сверить пломбы/серийник с видео перед отправкой", "Сразу выкинуть транспортную упаковку у входа"], correct: 1, explain: "Если назвать код выдачи до осмотра возврата под камерами, подать акт о подмене или повреждении товара уже не получится." },
+        { q: "Вы вскрыли возвратную посылку под камерами в ПВЗ и видите, что заводская пломба вскрыта (или внутри подмена). В какой срок нужно подать заявление на компенсацию в поддержку Авито?", options: ["В течение 30 дней", "В течение 24 часов, приложив фото/видео ДО отправки, видео вскрытия возврата и подписанный сотрудником ПВЗ акт отказа", "Через неделю в чате с покупателем"], correct: 1, explain: "Через 24 часа система Авито закрывает возможность подать акт на компенсацию по возврату." },
+        { q: "Покупатель забрал товар домой, вскрыл заводскую плёнку, попользовался 2 дня и требует вернуть деньги на карту, потому что «передумал». Вы продаёте как физлицо. Обязаны ли вы принимать возврат?", options: ["Да, в течение 14 дней по закону", "Нет! На сделки между физлицами на Авито закон о защите прав потребителей (14 дней на возврат исправного товара) не распространяется", "Обязаны, если покупатель пригрозит плохим отзывом"], correct: 1, explain: "Между физлицами сделка считается закрытой в момент осмотра и получения посылки на ПВЗ." }
+      ]
+    },
+    {
+      id: 21, module: 3, img: "images/23.jpg", num: "Уроки 23 и 24", title: "Товар не покупают и таблица БИЗНЕС-ПОМОЩНИК", postUrl: TG_LINKS.lesson24,
+      text: `<p style="margin-bottom:12px;">Если карточка зависла и заказов нет — не паникуем, а последовательно включаем инструменты реанимации из 23 урока и сверяем цифры в «Бизнес-Помощнике»:</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>🚀 3 шага для разгона продаж:</strong><br/>
+        1) Включаем <strong>«Скидку на доставку»</strong> (оптимальную сумму от Авито) и <strong>«Скидку на количество»</strong> (например, 2% при заказе от 3 штук) в разделе «Спецпредложения»;<br/>
+        2) Уменьшаем цену на <strong>25% от заложенной прибыли</strong> (не уходя в ноль) и округляем ценник в пользу покупателя;<br/>
+        3) При пересъёмке товара сначала <strong>снимаем старое объявление, ждём 12–24 часа</strong> и только потом публикуем новое с обновлёнными фото и текстом.
+      </div>`,
+      cases: [
+        { q: "Товар плохо продаётся, и вы решили стимулировать заказы через настройки спецпредложений и доставки. Какие два инструмента из 23 урока рекомендуется включить?", options: ["Повысить цену на 50% и убрать фото", "Включить «Скидку на доставку» (среднее значение от Авито) и «Скидку на количество» в разделе «Спецпредложения»", "Отключить все способы доставки и убрать описание"], correct: 1, explain: "Скидка на доставку снижает барьер покупки для клиентов из других городов, а скидка за количество стимулирует брать сразу несколько штук." },
+        { q: "Ваш брендовый товар завис и плохо продаётся. Как правильно скорректировать цену по 23 уроку?", options: ["Срезать 50% от всей стоимости товара в жёсткий минус", "Сделать скидку 25% от заложенной прибыли (не уходя в ноль) и округлить ценник по секретам продавцов", "Поднять цену в 2 раза"], correct: 1, explain: "Срез четверти чистой прибыли сохраняет вас в плюсе, но делает предложение самым выгодным среди конкурентов." },
+        { q: "Вы решили полностью переснять зависший товар и выложить новое объявление с обновлённым описанием. Как сделать это без риска блокировки за дубли?", options: ["Опубликовать новое и оставить старое висеть параллельно 3 дня", "Сначала снять с публикации старое объявление, подождать 12–24 часа и только потом опубликовать новое с новыми фото и изменённым текстом", "Просто поменять местами первое и второе фото в старом объявлении"], correct: 1, explain: "Алгоритмы Авито ловят дубли в первые же часы — поэтому старое объявление снимаем заранее до публикации нового." }
+      ]
+    },
+      {
+      id: 22, module: 4, img: "images/25.jpg", num: "Урок 25", title: "Физлицо, самозанятость и ИП (Налоги и 115-ФЗ)", postUrl: TG_LINKS.lesson25, extraBtn: { text: "🏦 Открыть ИП в Альфа-Банке", url: "https://alfa.me/s_CNoS" },
+      text: `<p style="margin-bottom:12px;">Разбираем законную схему работы, чтобы не получить доначисление налогов от ФНС и блокировку карты банком по 115-ФЗ.</p>
+      <div style="background:#fff0f0;border-left:4px solid #ff2424;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>🚫 Важно по закону (ФЗ-422):</strong> режим самозанятого (НПД 4%) <strong>НЕ подходит для перепродажи чужих фабричных товаров</strong> (он разрешён только для продажи товаров собственного производства или услуг). При выявлении перепродаж налоговая доначислит 13% НДФЛ и штраф.
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:12px;">
+        <strong>✅ Пошаговый переход на белую схему:</strong><br/>
+        • <strong>Этап теста:</strong> разовые продажи 2–5 шт./мес. (на 20–30 тыс. ₽) проводим как обычное физлицо строго через Авито-доставку (чтобы выплаты шли от самого Авито, а не десятками переводов от разных людей на карту по 115-ФЗ);<br/>
+        • <strong>Выход на поток (от 70–100 тыс. ₽/мес.):</strong> открываем <strong>ИП на УСН 6% («Доходы»)</strong> и расчётный счёт.
+      </div>
+      <a href="https://alfa.me/s_CNoS" target="_blank" class="btn-primary" style="width:100%;">🏦 Открыть ИП и расчётный счёт в Альфа-Банке (бонус 3000 баллов)</a>`,
+      cases: [
+        { q: "Многие новички подключают самозанятость (4%) на Авито для оптовой перепродажи чужих товаров (наушников, фенов с Wikkeo/Ozon). Что говорит закон (ФЗ-422) из 25 урока?", options: ["Самозанятость идеально подходит для перепродажи любых товаров с Wildberries и Wikkeo", "По закону (ФЗ-422) самозанятым СТРОГО ЗАПРЕЩЕНО перепродавать чужие фабричные товары (она подходит только для товаров своего производства или услуг) — для регулярных перепродаж нужно ИП на УСН 6%", "Налог для самозанятых при перепродаже составляет 1%"], correct: 1, explain: "Если налоговая выявит перепродажу фабричных товаров на НПД, она пересчитает налог по ставке 13% НДФЛ и выпишет штраф — поэтому при выходе на поток открываем ИП." },
+        { q: "Когда новичку по правилам 25 урока можно тестировать спрос как обычное физлицо, а когда пора регистрировать ИП на УСН 6%?", options: ["ИП нужно открыть ещё до регистрации на Авито", "На этапе теста (разовые продажи 2–5 шт./мес. на 20–30 тыс. ₽ через Авито-доставку) можно работать как физлицо, а при выходе на стабильный ежемесячный поток (от 70–100 тыс. ₽) обязательно открываем ИП", "Никогда не нужно открывать ИП"], correct: 1, explain: "На старте тестируем нишу без лишних взносов как физлицо, а при появлении стабильного дохода легализуем бизнес через ИП на УСН 6%." },
+        { q: "Как не словить блокировку личной банковской карты по 115-ФЗ на этапе тестирования продаж до открытия расчётного счёта ИП?", options: ["Принимать десятки мелких переводов от разных людей на одну личную карту Сбера", "Проводить сделки через Авито-доставку (выплаты приходят официальным переводом от самого Авито), а при росте оборота перевести расчёты на бизнес-счёт ИП", "Переводить деньги между пятью своими картами каждый день"], correct: 1, explain: "Множество мелких переводов от разных физлиц — главный триггер для антифрод-системы банка по 115-ФЗ." }
+      ]
+    },
+
+    {
+      id: 23, module: 4, img: "images/26.jpg", num: "Урок 26", title: "Упаковка и видеофиксация перед отправкой", postUrl: TG_LINKS.lesson26,
+      text: `<p style="margin-bottom:12px;">Надёжная упаковка и непрерывная видеосъёмка перед отправкой полностью защищают ваши деньги при спорных возвратах.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>📦 Правила упаковки заказа:</strong><br/>
+        • Оборачиваем товар в <strong>2–3 слоя пупырчатой плёнки</strong> и кладём в отдельную транспортную коробку с уплотнителем (бесплатные коробки можно брать в магазинах «Красное и Белое»);<br/>
+        • Никогда не клеим скотч прямо на заводскую коробку товара и не заклеиваем посылку до конца до осмотра сотрудником ПВЗ (кроме 5Post).
+      </div>
+      <div style="background:#fff0f0;border-left:4px solid #ff2424;padding:12px 14px;border-radius:10px;">
+        <strong>🎥 Регламент видеофиксации:</strong> снимаем видео <strong>одним непрерывным дублем без склеек</strong> в ПВЗ под камерами — показываем целостность пломб со всех сторон, крупно серийный номер/IMEI и процесс упаковки.
+      </div>`,
+      cases: [
+        { q: "Вы отправляете дорогой товар Авито-доставкой. Как правильно снять видеофиксацию перед отправкой, чтобы поддержка Авито приняла её как 100% доказательство?", options: ["Снять 3 коротких обрывка по 2 секунды дома на диване", "Снять видео одним непрерывным дублем прямо в ПВЗ под камерами: показать целостность пломб со всех сторон, крупно серийный номер/IMEI, процесс упаковки и заклейки коробки", "Сфотографировать только закрытую коробку"], correct: 1, explain: "Непрерывное видео одним дублем без склеек и пауз исключает любые сомнения поддержки при спорных возвратах." },
+        { q: "Почему категорически нельзя клеить скотч, наклейки или штрихкоды прямо на заводскую коробку товара, а также нельзя запечатывать транспортную коробку до показа сотруднику ПВЗ?", options: ["Скотч портит заводскую коробку (срывает краску при отрывании), а перед отправкой сотрудник ПВЗ обязан осмотреть содержимое посылки по регламенту Авито", "Потому что на ПВЗ запрещён обычный скотч", "Потому что коробку не примут по весу"], correct: 0, explain: "Товар оборачиваем в 2–3 слоя пупырки и кладём в отдельную транспортную коробку с уплотнителем, запечатывая до конца после осмотра на ПВЗ." },
+        { q: "Где можно бесплатно брать прочные картонные коробки для отправки заказов через Почту России и 5Post, чтобы не переплачивать за упаковку на пункте?", options: ["Покупать каждый раз на Почте за 200 ₽", "Бесплатно брать ненужные коробки в ближайших продуктовых магазинах (например, в «Красное и Белое»)", "Отправлять товар в обычном прозрачном пакете без коробки"], correct: 1, explain: "Бесплатные коробки из магазинов + рулон пупырки с маркетплейса снижают стоимость упаковки одного заказа до 15–30 ₽." }
+      ]
+    },
+    {
+      id: 24, module: 4, img: "images/27.jpg", num: "Урок 27", title: "Оспаривание негативных отзывов", postUrl: TG_LINKS.lesson27,
+      text: `<p style="margin-bottom:12px;">Несправедливый отзыв на 1 звезду можно и нужно обжаловать в течение <strong>45 дней</strong> с момента публикации.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>🛠 5 шагов для удаления негатива:</strong><br/>
+        1) Нажимаем на <strong>3 точки</strong> возле отзыва &rarr; «Обжаловать отзыв»;<br/>
+        2) Выбираем точную причину (например, шантаж или несостоявшаяся сделка);<br/>
+        3) Подробно описываем ситуацию с фактами и прикрепляем скриншоты переписки;<br/>
+        4) Если первый бот отказал — пишем повторно в <strong>живой чат поддержки</strong> для проверки человеком;<br/>
+        5) Если отзыв оставили — пишем спокойный, вежливый ответ без оскорблений для будущих покупателей и перекрываем его новыми 5-звёздочными отзывами.
+      </div>`,
+      cases: [
+        { q: "Покупатель написал в чат: «Давай мне 500 ₽ на карту и я удалю отзыв на 1 звезду!». Какова вероятность удаления такого отзыва поддержкой Авито и что нужно сделать?", options: ["Удалят с вероятностью 100%, если нажать на 3 точки возле отзыва -> «Обжаловать отзыв», выбрать причину и прикрепить скриншот переписки с шантажом", "Поддержка никогда не удаляет отзывы за шантаж, лучше перевести 500 ₽", "Нужно срочно удалить своё объявление"], correct: 0, explain: "Прямой шантаж в чате Авито гарантированно приводит к удалению отзыва модерацией при подаче жалобы со скриншотом." },
+        { q: "Первичный бот поддержки Авито отклонил вашу жалобу на несправедливый отзыв, хотя покупатель был не прав. Что делать дальше по 27 уроку?", options: ["Смириться и ничего не делать", "Подать повторное обращение в живой ЧАТ с поддержкой (чтобы проверил человек), а если не удалят — оставить спокойный, вежливый комментарий-ответ без оскорблений и личных данных под отзывом", "Написать в ответе адрес и телефон покупателя"], correct: 1, explain: "Повторная проверка живым оператором + вежливый аргументированный ответ под отзывом (и перекрытие новыми 5-звёздочными отзывами) полностью спасают репутацию." },
+        { q: "В течение какого срока с момента публикации можно подать обращение на обжалование негативного отзыва на Авито?", options: ["В течение 45 дней", "В течение 3 часов", "В течение 1 года"], correct: 0, explain: "После истечения 45 дней система Авито закрывает возможность обжалования отзыва." }
+      ]
+    },
+    {
+      id: 25, module: 4, img: "images/28.jpg", num: "Урок 28", title: "Грамотный торг и скидки через промокод", postUrl: TG_LINKS.lesson28,
+      text: `<p style="margin-bottom:12px;">Грамотный торг позволяет закрыть сомневающегося клиента здесь и сейчас, не снижая основную цену в объявлении для остальных покупателей.</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>🎟 Персональная скидка через промокод:</strong><br/>
+        • Заходим в <strong>Профиль &rarr; Спецпредложения &rarr; Промокод</strong>;<br/>
+        • Создаём разовый промокод на согласованную сумму скидки (на 1 день) и отправляем код клиенту в чат с фразой: <em>«Данная цена действует только сегодня при оформлении заказа!»</em>;<br/>
+        • Если клиент не оформил заказ за день — отключаем промокод в разделе «Спецпредложения».
+      </div>`,
+      cases: [
+        { q: "Покупатель в чате просит скидку, и вы готовы уступить ему 500 ₽ при заказе с Авито-доставкой. Почему по 28 уроку нельзя просто менять цену в самом объявлении, и как сделать правильно?", options: ["Чтобы цену со скидкой не увидели другие люди — нужно зайти в Профиль -> Спецпредложения -> Промокод, создать разовый промокод на 500 ₽ и отправить его клиенту в чат", "Нужно попросить перевести деньги на карту без Авито-доставки", "Нужно удалить старое объявление и создать новое со скидкой"], correct: 0, explain: "Разовый промокод даёт персональную скидку конкретному покупателю на 1 день, не ломая основную цену в объявлении для остальных клиентов." },
+        { q: "Какой размер первой уступки при торге рекомендует 28 урок, и какую фразу обязательно нужно дописать покупателю после согласования скидки?", options: ["Сразу скинуть 25% и написать «Можете подумать неделю»", "Сделать первую скидку максимум на 1–2% (при повторном торге до 3–5% с просьбой оставить отзыв) и обязательно написать: «Данная цена действует только сегодня при оформлении заказа!»", "Нахамить клиенту за просьбу о скидке"], correct: 1, explain: "Ограничение срока действия скидки сегодняшним днём стимулирует покупателя оформить заказ сразу." },
+        { q: "Что нужно сделать с созданным разовым промокодом в разделе «Спецпредложения», если покупатель передумал и не оформил заказ в течение дня?", options: ["Оставить его активным навсегда", "Зайти в раздел «Спецпредложения — Промокоды» и завершить его действие, чтобы скидкой не воспользовался кто-то другой", "Удалить свой профиль"], correct: 1, explain: "Своевременное отключение неиспользованного промокода защищает вашу маржу от случайных заказов со скидкой." }
+      ]
+    },
+    {
+      id: 26, module: 4, img: "images/29.jpg", num: "Урок 29", title: "Защита от блокировки профиля Авито", postUrl: TG_LINKS.lesson29,
+      text: `<p style="margin-bottom:12px;">Ваш верифицированный профиль на Авито — главный рабочий актив. Берегите его от вечной блокировки:</p>
+      <div style="background:#fff0f0;border-left:4px solid #ff2424;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>🔒 Правило паспорта и устройств:</strong><br/>
+        • Проверка по паспорту и биометрии привязывается к аккаунту <strong>пожизненно</strong> — при вечном бане пройти верификацию заново на свои документы уже не выйдет;<br/>
+        • Работаем с <strong>1 основного телефона</strong> (плюс ПК для аналитики) и никогда не входим в разные аккаунты с одного устройства и общего Wi-Fi.
+      </div>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;">
+        <strong>💸 Возврат зависших средств:</strong> даже если профиль заблокировали, Авито обязан вернуть ваши деньги за завершённые заказы по обращению на почту <code>support@avito.ru</code> с привязанного e-mail.
+      </div>`,
+      cases: [
+        { q: "Сколько устройств рекомендуется привязывать к одному аккаунту Авито, и почему нельзя просить покупателя перейти в Telegram или отправлять ему свой номер/QR-код в чате?", options: ["Можно входить с 5 разных телефонов одновременно и кидать ссылки на ТГ", "Работать с 1 основного устройства (плюс ПК для аналитики) и проводить сделки строго внутри Авито — за увод в мессенджеры и предоплату на карту в обход доставки прилетает бан на 3 дня, а повторно — навсегда", "Можно отправлять номер телефона картинкой"], correct: 1, explain: "Алгоритмы Авито жёстко отслеживают попытки увода сделок за пределы платформы и подозрительные входы с разных устройств." },
+        { q: "Ваш основной аккаунт с пройденной проверкой по паспорту заблокировали навсегда за нарушение правил. Сможете ли вы создать новый профиль и заново пройти проверку по своим документам?", options: ["Да, через 7 дней", "Нет! Паспортные данные и биометрия привязываются к заблокированному аккаунту пожизненно", "Смогу, если сменю номер телефона"], correct: 1, explain: "Верификация по документам на Авито привязывается навсегда — берегите основной аккаунт." },
+        { q: "На вашем заблокированном аккаунте Авито остались деньги за завершённый заказ. Обязана ли поддержка Авито вернуть их вам?", options: ["Нет, деньги сгорают навсегда", "Да! Нужно написать на почту support@avito.ru (с почты, привязанной к профилю) или позвонить на горячую линию — специалисты обязаны вернуть ваши средства", "Только если заплатить штраф"], correct: 1, explain: "Даже при блокировке аккаунта Авито обязан вывести ваши законные средства по обращению в поддержку." }
+      ]
+    },
+    {
+      id: 27, module: 4, img: "images/30.jpg", num: "Урок 30", title: "Дорожная карта запуска за 2 недели", postUrl: TG_LINKS.lesson30,
+      text: `<p style="margin-bottom:12px;">Финальный пошаговый план выхода на первые стабильные продажи за 14 дней без риска потерять бюджет:</p>
+      <div style="background:#eafbee;border-left:4px solid #12d832;padding:12px 14px;border-radius:10px;margin-bottom:10px;">
+        <strong>🗓 План запуска на 2 недели:</strong><br/>
+        • <strong>Дни 1–2:</strong> настройка и оформление аккаунта, подбор 5–7 товаров под ваш город и расчёт наценки в «Бизнес-Помощнике»;<br/>
+        • <strong>Дни 3–9:</strong> запуск пробных объявлений без закупки и замер графика просмотров и сообщений в трекере;<br/>
+        • <strong>День 10:</strong> закупка минимальной партии ТОП-товаров, показавших лучший актив, и старт легального набора отзывов (по 20 уроку);<br/>
+        • <strong>Дни 11–14:</strong> живая фото- и видеосъёмка в формате 16:9, публикация боевых объявлений с секретами 21 урока и первые продажи!
+      </div>`,
+      cases: [
+        { q: "Какая правильная последовательность действий новичка в первые 14 дней по дорожной карте из 30 урока?", options: ["День 1: закупить партию на весь бюджет -> День 2: создать аккаунт", "Дни 1–2: настройка аккаунта и расчёт товаров в Бизнес-Помощнике -> Дни 3–9: тест спроса пробными объявлениями без закупки -> День 10: закупка ТОП-товаров и старт набора отзывов по 20 пункту -> Дни 11–14: фотосъёмка и боевые продажи", "Сразу подключить Авито Pro в первый день"], correct: 1, explain: "Именно такая поэтапная система за 2 недели позволяет выйти на первые стабильные продажи без заморозки бюджета в неликвиде." },
+        { q: "Прошло 2 недели, вы продали первую партию товара в плюс. Как правильно распорядиться выручкой для роста капитала?", options: ["Потратить всё на личные покупки", "Вернуть 100% себестоимости (З.С.Т.) + 70–80% чистой прибыли в закупку новой проверенной партии, а 20–30% прибыли отложить в подушку безопасности", "Вложить 100% денег в платные услуги продвижения"], correct: 1, explain: "Реинвестирование основной части прибыли с формированием резерва обеспечивает стабильный рост оборота." },
+        { q: "Что делать, если на 3–9 день теста пробное объявление не дало нужного числа просмотров и обращений?", options: ["Всё равно закупить этот товар", "Снять пустое объявление без потерь бюджета и запустить тест следующего товара из вашего списка в Бизнес-Помощнике", "Бросить перепродажи"], correct: 1, explain: "Главная сила методики — отсеивать слабые товары на этапе бесплатного теста до вложения денег." }
+      ]
+    }
+  ];
+  let completedLessons = JSON.parse(localStorage.getItem('aplovolika_completed') || '[]');
+  let currentModule = 1;
+  let activeQuiz = { isExam: false, lessonId: null, title: "", postUrl: "", img: "", questions: [], currentIndex: 0, score: 0 };
+
+  function switchMainTab(tab) {
+    document.getElementById('tab-learn').classList.toggle('hidden', tab !== 'learn');
+    document.getElementById('tab-calc').classList.toggle('hidden', tab !== 'calc');
+    document.getElementById('tab-legal').classList.toggle('hidden', tab !== 'legal');
+
+    document.getElementById('nav-learn').classList.toggle('active', tab === 'learn');
+    document.getElementById('nav-calc').classList.toggle('active', tab === 'calc');
+    document.getElementById('nav-legal').classList.toggle('active', tab === 'legal');
+
+    if (tab === 'calc') renderAllBp();
+  }
+
+  function updateProgressUI() {
+    const total = LESSONS_DATA.length;
+    const done = completedLessons.filter(id => LESSONS_DATA.some(l => l.id === id)).length;
+    const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    document.getElementById('progress-text').innerText = `${done} из ${total} блоков (${pct}%)`;
+    document.getElementById('progress-fill').style.width = `${pct}%`;
+  }
+
+  function openLessonReader(lessonId) {
+    const lesson = LESSONS_DATA.find(l => l.id === lessonId);
+    if (!lesson) return;
+    document.getElementById('reader-num').innerText = lesson.num;
+    document.getElementById('reader-title').innerText = lesson.title;
+    document.getElementById('reader-body').innerHTML = lesson.text || '<p>Текст урока доступен в Telegram-канале.</p>';
+    document.getElementById('reader-tg-link').href = lesson.postUrl;
+    const imgEl = document.getElementById('reader-img');
+    if (lesson.img) { imgEl.src = lesson.img; imgEl.classList.remove('hidden'); } else { imgEl.classList.add('hidden'); }
+    document.getElementById('reader-quiz-btn').onclick = function() {
+      closeLessonReader();
+      startLessonQuiz(lesson.id);
+    };
+    document.getElementById('lesson-reader-modal').classList.remove('hidden');
+  }
+
+  function closeLessonReader() {
+    document.getElementById('lesson-reader-modal').classList.add('hidden');
+  }
+
+  function renderLessons() {
+    const container = document.getElementById('lessons-container');
+    container.innerHTML = '';
+    const filtered = LESSONS_DATA.filter(l => l.module === currentModule);
+
+    filtered.forEach(lesson => {
+      const isDone = completedLessons.includes(lesson.id);
+      const card = document.createElement('div');
+      card.className = `lesson-card ${isDone ? 'completed' : ''}`;
+      const extraHtml = lesson.extraBtn ? `<a href="${lesson.extraBtn.url}" target="_blank" class="btn-outline" style="border-color:#ef4444;color:#dc2626;">${lesson.extraBtn.text}</a>` : '';
+      card.innerHTML = `
+        <img class="lesson-cover" src="${lesson.img}" alt="${lesson.title}" onerror="this.style.display='none'" />
+        <div class="lesson-num"><span>${lesson.num}</span>${isDone ? '<span class="status-pill">✔️ Пройдено</span>' : ''}</div>
+        <div class="lesson-title">${lesson.title}</div>
+        <div class="lesson-actions">
+          <button class="btn-green" onclick="openLessonReader(${lesson.id})">📖 Читать урок</button>
+          <button class="btn-primary" onclick="startLessonQuiz(${lesson.id})">${isDone ? 'Повторить кейсы' : 'Решить 3 кейса'}</button>
+          <a href="${lesson.postUrl}" target="_blank" class="btn-outline">↗️ В ТГ</a>
+          ${extraHtml}
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function selectModule(modNum) {
+    currentModule = modNum;
+    const btns = document.querySelectorAll('.tab-btn');
+    for (let i = 0; i < btns.length; i++) {
+      btns.item(i).classList.toggle('active', i + 1 === modNum);
+    }
+    renderLessons();
+  }
+
+  function startLessonQuiz(lessonId) {
+    const lesson = LESSONS_DATA.find(l => l.id === lessonId);
+    if (!lesson) return;
+    activeQuiz = {
+      isExam: false, lessonId: lesson.id, title: `${lesson.num}: ${lesson.title}`, postUrl: lesson.postUrl, img: lesson.img,
+      questions: lesson.cases.map(c => ({ ...c, lessonLabel: lesson.num, postUrl: lesson.postUrl, img: lesson.img })),
+      currentIndex: 0, score: 0
+    };
+    openQuizView();
+  }
+
+  function startExam() {
+    let allQ = [];
+    LESSONS_DATA.forEach(l => l.cases.forEach(c => allQ.push({ ...c, lessonLabel: `${l.num} — ${l.title}`, postUrl: l.postUrl, img: l.img })));
+    allQ.sort(() => Math.random() - 0.5);
+    activeQuiz = { isExam: true, lessonId: null, title: "Финальный экзамен", postUrl: TG_LINKS.start, img: "", questions: allQ.slice(0, 15), currentIndex: 0, score: 0 };
+    openQuizView();
+  }
+
+  function openQuizView() {
+    document.getElementById('home-view').classList.add('hidden');
+    document.getElementById('quiz-view').classList.remove('hidden');
+    document.getElementById('quiz-active-area').classList.remove('hidden');
+    document.getElementById('quiz-result-area').classList.add('hidden');
+    renderQuestion();
+  }
+
+  function goHome() {
+    document.getElementById('quiz-view').classList.add('hidden');
+    document.getElementById('home-view').classList.remove('hidden');
+    updateProgressUI();
+    renderLessons();
+  }
+
+  function renderQuestion() {
+    const qObj = activeQuiz.questions.at(activeQuiz.currentIndex);
+    document.getElementById('quiz-counter').innerText = `Кейс ${activeQuiz.currentIndex + 1} из ${activeQuiz.questions.length}`;
+    document.getElementById('quiz-lesson-label').innerText = qObj.lessonLabel;
+    document.getElementById('quiz-question').innerText = qObj.q;
+    document.getElementById('quiz-post-link').href = qObj.postUrl;
+    const imgEl = document.getElementById('quiz-cover-img');
+    if (qObj.img) { imgEl.src = qObj.img; imgEl.classList.remove('hidden'); } else { imgEl.classList.add('hidden'); }
+    const expBox = document.getElementById('quiz-explanation');
+    expBox.className = 'explanation-box';
+    expBox.innerText = '';
+    document.getElementById('quiz-next-btn').classList.add('hidden');
+    const optsContainer = document.getElementById('quiz-options');
+    optsContainer.innerHTML = '';
+    qObj.options.forEach((optText, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.innerText = optText;
+      btn.onclick = () => handleAnswer(idx, btn);
+      optsContainer.appendChild(btn);
+    });
+  }
+
+  function handleAnswer(selectedIdx, clickedBtn) {
+    const qObj = activeQuiz.questions.at(activeQuiz.currentIndex);
+    const allBtns = document.querySelectorAll('.option-btn');
+    allBtns.forEach(b => b.disabled = true);
+    const expBox = document.getElementById('quiz-explanation');
+    if (selectedIdx === qObj.correct) {
+      activeQuiz.score++;
+      clickedBtn.classList.add('correct');
+      expBox.className = 'explanation-box show ok';
+      expBox.innerHTML = `<strong>✅ Правильно!</strong><br>${qObj.explain}`;
+    } else {
+      clickedBtn.classList.add('wrong');
+      allBtns.item(qObj.correct).classList.add('correct');
+      expBox.className = 'explanation-box show err';
+      expBox.innerHTML = `<strong>❌ Ошибка!</strong><br>${qObj.explain}`;
+    }
+    const nextBtn = document.getElementById('quiz-next-btn');
+    nextBtn.classList.remove('hidden');
+    nextBtn.innerText = (activeQuiz.currentIndex + 1 < activeQuiz.questions.length) ? 'Дальше →' : 'Результат 🏆';
+  }
+
+  function nextQuestion() {
+    activeQuiz.currentIndex++;
+    activeQuiz.currentIndex < activeQuiz.questions.length ? renderQuestion() : showQuizResults();
+  }
+
+  function showQuizResults() {
+    document.getElementById('quiz-active-area').classList.add('hidden');
+    document.getElementById('quiz-result-area').classList.remove('hidden');
+    const total = activeQuiz.questions.length;
+    const score = activeQuiz.score;
+    const passed = score >= Math.ceil(total * 0.7);
+    document.getElementById('result-score').innerText = `${score} / ${total}`;
+    document.getElementById('result-score').style.color = passed ? 'var(--avito-green)' : '#d97706';
+    document.getElementById('result-post-link').href = activeQuiz.postUrl;
+    if (activeQuiz.isExam) {
+      document.getElementById('result-title').innerText = passed ? 'Экзамен сдан! Селлер готов к запуску!' : 'Нужно повторить базу!';
+      document.getElementById('result-desc').innerText = passed ? 'Отличный результат! Вы уверенно владеете всеми инструментами курса.' : 'Допущено несколько критических ошибок. Перечитайте посты канала и попробуйте снова.';
+    } else {
+      if (passed && !completedLessons.includes(activeQuiz.lessonId)) {
+        completedLessons.push(activeQuiz.lessonId);
+        localStorage.setItem('aplovolika_completed', JSON.stringify(completedLessons));
+      }
+      document.getElementById('result-title').innerText = passed ? 'Урок успешно закреплён!' : 'Стоит перечитать пост';
+      document.getElementById('result-desc').innerText = passed ? 'Вы правильно разобрали ключевые ситуации этого урока!' : 'Чтобы урок засчитался, нужно решить минимум 2 из 3 кейсов.';
+    }
+  }
+
+  function retryQuiz() { activeQuiz.isExam ? startExam() : startLessonQuiz(activeQuiz.lessonId); }
+  let bpData = JSON.parse(localStorage.getItem('aplovolika_bp') || '{"sales":[],"stock":[],"expenses":[],"tests":[]}');
+
+  function saveBp() {
+    localStorage.setItem('aplovolika_bp', JSON.stringify(bpData));
+    renderAllBp();
+  }
+
+  function switchBpSheet(num) {
+    for (let s = 1; s <= 5; s++) {
+      const sheetEl = document.getElementById('bp-sheet-' + s);
+      const btnEl = document.getElementById('bp-btn-' + s);
+      if (sheetEl) sheetEl.classList.toggle('hidden', s !== num);
+      if (btnEl) btnEl.classList.toggle('active', s === num);
+    }
+    renderAllBp();
+  }
+
+  function getMarkup7(zst) {
+    if (zst < 300) return 200;
+    if (zst <= 899) return 300;
+    if (zst <= 2199) return 500;
+    if (zst <= 2599) return 700;
+    if (zst <= 2999) return 1100;
+    if (zst <= 3999) return 1500;
+    if (zst <= 5999) return 2000;
+    if (zst <= 7999) return 2500;
+    if (zst <= 9999) return 3000;
+    return Math.round(zst * 0.25);
+  }
+
+  function calcS1Preview() {
+    const cost = parseFloat(document.getElementById('s1-cost').value) || 0;
+    const price = parseFloat(document.getElementById('s1-price').value) || 0;
+    const mp = parseFloat(document.getElementById('s1-mp').value) || 0;
+    const comm = parseFloat(document.getElementById('s1-comm').value) || 0;
+    const tax = parseFloat(document.getElementById('s1-tax').value) || 0;
+    const pack = parseFloat(document.getElementById('s1-pack').value) || 0;
+    const qty = parseInt(document.getElementById('s1-qty').value) || 1;
+    const status = document.getElementById('s1-status').value;
+    const box = document.getElementById('s1-preview');
+
+    if (!cost) {
+      box.innerHTML = 'Заполните З.С.Т. и цену — таблица автоматически рассчитает наценку по 7 пункту, сравнит с WB/Ozon и покажет чистую прибыль.';
+      return;
+    }
+    const markup = getMarkup7(cost);
+    const k = 1 - (comm + tax) / 100;
+    const recPrice = k > 0 ? Math.ceil((cost + markup + pack) / k) : cost + markup;
+    const mpCheck = mp > 0 ? (recPrice < mp ? '<span class="badge-ok">ОК: Дешевле МП</span>' : '<span class="badge-warn">Дороже МП!</span>') : 'Нет цены МП';
+
+    if (status === 'Возврат') {
+      const loss = -(pack * qty);
+      box.innerHTML = `Наценка по 7 п.: <strong>+${markup} ₽</strong> | Рек. цена: <strong>${recPrice} ₽</strong> (${mpCheck})<br>При статусе «Возврат» убыток только на упаковку: <strong style="color:#dc2626;">${loss} ₽</strong>`;
+      return;
+    }
+    const netUnit = price - cost - pack - price * ((comm + tax) / 100);
+    const netTotal = Math.round(netUnit * qty);
+    box.innerHTML = `Наценка по 7 п.: <strong>+${markup} ₽</strong> | Рек. цена: <strong>${recPrice} ₽</strong> (${mpCheck})<br>Чистая прибыль за ${qty} шт.: <strong style="color:${netTotal >= 0 ? '#059669' : '#dc2626'};">${netTotal} ₽</strong>`;
+  }
+
+  function addSaleRow() {
+    const name = document.getElementById('s1-name').value.trim();
+    const status = document.getElementById('s1-status').value;
+    const qty = parseInt(document.getElementById('s1-qty').value) || 1;
+    const cost = parseFloat(document.getElementById('s1-cost').value) || 0;
+    const comm = parseFloat(document.getElementById('s1-comm').value) || 0;
+    const tax = parseFloat(document.getElementById('s1-tax').value) || 0;
+    const pack = parseFloat(document.getElementById('s1-pack').value) || 0;
+    const price = status === 'Возврат' ? 0 : (parseFloat(document.getElementById('s1-price').value) || 0);
+    if (!name || !cost) return alert('Укажите название товара и цену закупки З.С.Т.');
+    const rev = price * qty;
+    const profit = status === 'Возврат' ? -(pack * qty) : Math.round((price - cost - pack - price * ((comm + tax) / 100)) * qty);
+    bpData.sales.unshift({ name, status, qty, cost, price, rev, profit });
+    document.getElementById('s1-name').value = '';
+    saveBp();
+  }
+
+  function addStockRow() {
+    const name = document.getElementById('s2-name').value.trim();
+    const sup = document.getElementById('s2-sup').value;
+    const qty = parseInt(document.getElementById('s2-qty').value) || 0;
+    const cost = parseFloat(document.getElementById('s2-cost').value) || 0;
+    if (!name || !qty || !cost) return alert('Заполните название, количество и цену закупки.');
+    bpData.stock.unshift({ name, sup, qty, cost });
+    document.getElementById('s2-name').value = '';
+    document.getElementById('s2-qty').value = '';
+    document.getElementById('s2-cost').value = '';
+    saveBp();
+  }
+
+  function addExpenseRow() {
+    const cat = document.getElementById('s3-cat').value;
+    const spent = parseFloat(document.getElementById('s3-spent').value) || 0;
+    const ret = parseFloat(document.getElementById('s3-ret').value) || 0;
+    const note = document.getElementById('s3-note').value.trim() || cat;
+    if (!spent) return alert('Укажите потраченную сумму.');
+    bpData.expenses.unshift({ cat, spent, ret, net: spent - ret, note });
+    document.getElementById('s3-spent').value = '';
+    document.getElementById('s3-note').value = '';
+    saveBp();
+  }
+
+  function addTestRow() {
+    const name = document.getElementById('s4-name').value.trim();
+    const day = document.getElementById('s4-day').value;
+    const views = parseInt(document.getElementById('s4-views').value) || 0;
+    const likes = parseInt(document.getElementById('s4-likes').value) || 0;
+    const msgs = parseInt(document.getElementById('s4-msgs').value) || 0;
+    if (!name) return alert('Укажите название тестируемого товара.');
+    const ok = views >= 15 && msgs >= 1;
+    bpData.tests.unshift({ name, day, views, likes, msgs, ok });
+    document.getElementById('s4-views').value = '';
+    document.getElementById('s4-likes').value = '';
+    document.getElementById('s4-msgs').value = '';
+    saveBp();
+  }
+
+  function delBp(key, idx) {
+    bpData.sales = key === 'sales' ? bpData.sales.filter((_, i) => i !== idx) : bpData.sales;
+    bpData.stock = key === 'stock' ? bpData.stock.filter((_, i) => i !== idx) : bpData.stock;
+    bpData.expenses = key === 'expenses' ? bpData.expenses.filter((_, i) => i !== idx) : bpData.expenses;
+    bpData.tests = key === 'tests' ? bpData.tests.filter((_, i) => i !== idx) : bpData.tests;
+    saveBp();
+  }
+
+  function renderAllBp() {
+    const dl = document.getElementById('stock-datalist');
+    dl.innerHTML = bpData.stock.map(s => `<option value="${s.name}">`).join('');
+
+    let totalRev = 0, salesProfit = 0, soldCount = 0, retCount = 0;
+    const s1Body = document.getElementById('s1-tbody');
+    s1Body.innerHTML = '';
+    bpData.sales.forEach((r, i) => {
+      totalRev += r.rev;
+      salesProfit += r.profit;
+      if (r.status === 'Продано') soldCount += r.qty; else retCount += r.qty;
+      s1Body.innerHTML += `<tr><td><strong>${r.name}</strong> (${r.qty} шт.)</td><td><span class="${r.status === 'Продано' ? 'badge-ok' : 'badge-warn'}">${r.status}</span></td><td>${r.rev} ₽</td><td style="font-weight:800;color:${r.profit >= 0 ? '#059669' : '#dc2626'}">${r.profit} ₽</td><td><button class="btn-outline" style="padding:2px 7px;" onclick="delBp('sales',${i})">✕</button></td></tr>`;
+    });
+
+    let totalBuy = 0, frozenSum = 0, stockRemainQty = 0;
+    const s2Body = document.getElementById('s2-tbody');
+    s2Body.innerHTML = '';
+    bpData.stock.forEach((st, i) => {
+      const soldForItem = bpData.sales.filter(s => s.status === 'Продано' && s.name.toLowerCase() === st.name.toLowerCase()).reduce((acc, x) => acc + x.qty, 0);
+      const rem = Math.max(0, st.qty - soldForItem);
+      const inv = st.qty * st.cost;
+      const frz = rem * st.cost;
+      const bep = Math.ceil(inv / (st.cost + getMarkup7(st.cost)));
+      totalBuy += inv; frozenSum += frz; stockRemainQty += rem;
+      s2Body.innerHTML += `<tr><td><strong>${st.name}</strong><br><span style="color:#6b7280">${st.sup}</span></td><td>${st.qty} / <strong>${rem} шт.</strong></td><td>${inv} ₽</td><td>${bep} шт.</td><td><button class="btn-outline" style="padding:2px 7px;" onclick="delBp('stock',${i})">✕</button></td></tr>`;
+    });
+
+    let totalAds = 0;
+    const s3Body = document.getElementById('s3-tbody');
+    s3Body.innerHTML = '';
+    bpData.expenses.forEach((ex, i) => {
+      totalAds += ex.net;
+      s3Body.innerHTML += `<tr><td><strong>${ex.cat}</strong></td><td>${ex.note}</td><td><strong>${ex.net} ₽</strong></td><td><button class="btn-outline" style="padding:2px 7px;" onclick="delBp('expenses',${i})">✕</button></td></tr>`;
+    });
+
+    const s4Body = document.getElementById('s4-tbody');
+    s4Body.innerHTML = '';
+    bpData.tests.forEach((t, i) => {
+      s4Body.innerHTML += `<tr><td><strong>${t.day}</strong>: ${t.name}</td><td>${t.views}</td><td>${t.msgs}</td><td><span class="${t.ok ? 'badge-ok' : 'badge-warn'}">${t.ok ? 'Актив ОК' : 'Слабо'}</span></td><td><button class="btn-outline" style="padding:2px 7px;" onclick="delBp('tests',${i})">✕</button></td></tr>`;
+    });
+
+    const netHand = salesProfit - totalAds;
+    document.getElementById('sum-rev').innerText = `${totalRev.toLocaleString('ru-RU')} ₽`;
+    document.getElementById('sum-buy').innerText = `${totalBuy.toLocaleString('ru-RU')} ₽`;
+    document.getElementById('sum-frozen').innerText = `${frozenSum.toLocaleString('ru-RU')} ₽`;
+    document.getElementById('sum-ads').innerText = `${totalAds.toLocaleString('ru-RU')} ₽`;
+    document.getElementById('sum-net').innerText = `${netHand.toLocaleString('ru-RU')} ₽`;
+    document.getElementById('sum-net').style.color = netHand >= 0 ? '#059669' : '#dc2626';
+    document.getElementById('sum-counts').innerText = `${soldCount} / ${retCount} шт.`;
+    document.getElementById('sum-stock-qty').innerText = `${stockRemainQty} шт.`;
+  }
+
+  updateProgressUI();
+  renderLessons();
+  renderAllBp();
+</script>
+</body>
+</html>
